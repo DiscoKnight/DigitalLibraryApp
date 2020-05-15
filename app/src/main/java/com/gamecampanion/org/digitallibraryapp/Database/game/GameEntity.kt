@@ -10,6 +10,7 @@ import java.time.LocalDate
 data class GameEntity(@PrimaryKey val id: Int,
                       @ColumnInfo(name = "gameName") val gameName: String?,
                       @ColumnInfo(name = "platform") val platform: String?,
-                      @ColumnInfo(name = "releaseDate") val releaseDate: LocalDate?,
+                      @ColumnInfo(name = "releaseDate") val releaseDate: String ?,
                       @ColumnInfo(name = "rating") val rating: Int?,
-                      @ColumnInfo(name = "genre") val genre: GameGenreEnum?)
+                      @ColumnInfo(name = "genre") val genre: String?,
+                      @ColumnInfo(name = "isPreOrdered") val isPreordered: Int?)

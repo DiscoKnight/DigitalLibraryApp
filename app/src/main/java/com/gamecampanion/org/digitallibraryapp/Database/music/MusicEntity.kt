@@ -10,7 +10,8 @@ import java.time.LocalDate
 class MusicEntity(@PrimaryKey val id: Int,
                   @ColumnInfo(name = "artist") val artist: String?,
                   @ColumnInfo(name = "album") val album: String?,
-                  @ColumnInfo(name = "releaseDate") val releaseDate: LocalDate?,
+                  @ColumnInfo(name = "releaseDate") val releaseDate: String?,
                   @ColumnInfo(name = "rating") val rating: Int?,
-                  @ColumnInfo(name = "genre") val genre: MusicGenreEnum?) {
+                  @ColumnInfo(name = "genre") val genre: String?,
+                  @ColumnInfo(name = "isPreOrdered") val isPreordered: Int?) {
 }

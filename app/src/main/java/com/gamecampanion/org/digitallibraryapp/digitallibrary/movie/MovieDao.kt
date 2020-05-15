@@ -3,6 +3,7 @@ package com.gamecampanion.org.digitallibraryapp.digitallibrary.movie
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.gamecampanion.org.digitallibraryapp.Database.movie.MovieEntity
 import com.gamecampanion.org.digitallibraryapp.Database.music.MusicEntity
 
@@ -10,8 +11,11 @@ import com.gamecampanion.org.digitallibraryapp.Database.music.MusicEntity
 interface MovieDao {
 
     @Query("select * from MovieEntity")
-    fun getAllGames(): List<MovieEntity>
+    fun getAllMovie(): List<MovieEntity>
 
     @Insert
-    fun insertGame(movie: MovieEntity)
+    fun insertMovie(movie: MovieEntity)
+
+    @Update
+    fun updateMovie(movie: MovieEntity)
 }

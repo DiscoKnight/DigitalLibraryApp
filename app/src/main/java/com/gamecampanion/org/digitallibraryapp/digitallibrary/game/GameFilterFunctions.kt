@@ -19,7 +19,7 @@ class GameFilterFunctions() : FilterFunctions() {
     }
 
     fun filterGameListGenre(list: List<GameEntity>, gameGenreEnum: GameGenreEnum): List<GameEntity>{
-        return list.filter { e -> e.genre == gameGenreEnum }.toList()
+        return list.filter { e -> e.genre == gameGenreEnum.toString() }.toList()
     }
 
 }
