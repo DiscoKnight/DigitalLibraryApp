@@ -7,7 +7,10 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="addMenuItem">Add</string>
+    <string name="viewMenuItem">View</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="app_view">Digital Library - View</string>
 </resources>

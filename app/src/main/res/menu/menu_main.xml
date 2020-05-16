@@ -12,7 +12,7 @@
     <item
         android:id="@+id/addMenuItem"
         android:orderInCategory="1"
-        android:title="@string/addMenuItem"
+        android:title="@string/viewMenuItem"
         app:showAsAction="never"
         />
 </menu>

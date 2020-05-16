@@ -1,5 +1,6 @@
 package com.gamecampanion.org.digitallibraryapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.transition.Fade
 import android.transition.Scene
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.menu.MenuBuilder
 import androidx.room.Room
 import com.gamecampanion.org.digitallibraryapp.Database.game.GameDB
 import com.gamecampanion.org.digitallibraryapp.Database.movie.MovieDB
@@ -40,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
-        return true
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -86,6 +88,10 @@ class MainActivity : AppCompatActivity() {
         var fadeTransition: Transition = Fade()
 
         var transition = TransitionManager.go(endscene, fadeTransition)
+
+        var intent = Intent()
+
+        setContentView(R.layout.viewcollectionlayout)
 
         return true
 
