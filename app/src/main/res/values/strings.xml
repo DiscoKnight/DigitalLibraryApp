@@ -4,13 +4,61 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-    <string name="addMenuItem">Add</string>
+    <string name="next">Log-on</string>
+    <string name="addString">Add</string>
+    <string name="addMenuItem">Account</string>
     <string name="viewMenuItem">View</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_first_fragment">Log on</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
     <string name="app_view">Digital Library - View</string>
+
+    <string-array name="typeCollections">
+        <item>Game</item>
+        <item>Music</item>
+        <item>Movie</item>
+    </string-array>
+
+    <string-array name="gamePlatform">
+        <item>PS1</item>
+        <item>PS2</item>
+        <item>PS3</item>
+        <item>PS4</item>
+        <item>PS5</item>
+        <item>PSVR</item>
+        <item>PSVita</item>
+        <item>PSP</item>
+        <item>XBox</item>
+        <item>XBox360</item>
+        <item>XBoxSeriesX</item>
+        <item>Switch</item>
+    </string-array>
+
+    <string-array name="gameGenres">
+        <item>Action/Adventure</item>
+        <item>RPG</item>
+        <item>JRPG</item>
+        <item>Fighting</item>
+        <item>Racing</item>
+        <item>Platformer</item>
+    </string-array>
+
+    <string-array name="musicGenre">
+        <item>Pop</item>
+        <item>Rock</item>
+        <item>Indie</item>
+        <item>Classical</item>
+        <item>Dance</item>
+        <item>Hip-hop</item>
+        <item>OST</item>
+    </string-array>
+
+    <string-array name="mmovieGenre">
+        <item>Comedy</item>
+        <item>Action</item>
+        <item>Fantasy/Sci-fi</item>
+        <item>Childrens</item>
+    </string-array>
+
 </resources>

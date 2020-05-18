@@ -3,6 +3,7 @@ package com.gamecampanion.org.digitallibraryapp
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,6 +18,12 @@ class ViewActivity: AppCompatActivity() {
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+        }
+
+        var platFormSpinner: Spinner = findViewById(R.id.platformSpinner)
+
+        platFormSpinner.setOnClickListener {
+                _ -> print("smurf")
         }
 
     }
