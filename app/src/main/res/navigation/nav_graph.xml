@@ -13,16 +13,31 @@
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/ThirdFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.gamecampanion.org.digitallibraryapp.MainFragment"
+        android:name="com.gamecampanion.org.digitallibraryapp.AddFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_main">
+        tools:layout="@layout/fragment_add">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            app:destination="@id/ThirdFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/ThirdFragment"
+        android:name="com.gamecampanion.org.digitallibraryapp.MainFragment"
+        android:label="Third Fragment"
+        android:layout="@layout/fragmentmain">
+
+        <action
+            android:id="@+id/action_ThirdFrgment_to_SecondFragment"
+            app:destination="@id/SecondFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
+
 </navigation>

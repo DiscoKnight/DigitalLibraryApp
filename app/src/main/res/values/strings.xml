@@ -8,10 +8,8 @@
     <string name="addString">Add</string>
     <string name="addMenuItem">Account</string>
     <string name="viewMenuItem">View</string>
-
     <string name="hello_first_fragment">Log on</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-
     <string name="app_view">Digital Library - View</string>
 
     <string-array name="typeCollections">
