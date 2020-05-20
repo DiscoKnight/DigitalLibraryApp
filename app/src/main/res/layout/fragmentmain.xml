@@ -1,49 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/backgroudgradient">
+    android:background="@drawable/backgroudgradient"
+    android:padding="200dp">
 
     <Button
         android:id="@+id/addButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/addString"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="@dimen/mainFragmentButtonMargin"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="@dimen/mainFragmentButtonPadding"
+        android:background="@drawable/roundedbutton"
+        android:gravity="center|center_horizontal"
         android:padding="@dimen/mainFragmentButtonPadding"
-        android:gravity="center_horizontal"
-        android:background="@drawable/roundedbutton"/>
+        android:text="@string/addString"
+        app:layout_constraintLeft_toleftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/viewButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/addButton"
         android:layout_margin="@dimen/mainFragmentButtonMargin"
+        android:background="@drawable/roundedbutton"
         android:padding="@dimen/mainFragmentButtonPadding"
         android:text="@string/viewMenuItem"
-        android:background="@drawable/roundedbutton"/>
-
-    <Button
-        android:id="@+id/editButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/viewButton"
-        android:layout_margin="@dimen/mainFragmentButtonMargin"
-        android:padding="@dimen/mainFragmentButtonPadding"
-        android:text="Edit"
-        android:background="@drawable/roundedbutton"/>
+        app:layout_constraintLeft_toRightOf="@id/addButton"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/deleteButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/editButton"
         android:layout_margin="@dimen/mainFragmentButtonMargin"
+        android:background="@drawable/roundedbutton"
         android:padding="@dimen/mainFragmentButtonPadding"
         android:text="Delete"
-        android:background="@drawable/roundedbutton"/>
+
+        app:layout_constraintTop_toBottomOf="@+id/viewButton"
+        app:layout_constraintLeft_toLeftOf="@id/editButton"/>
+
+    <Button
+        android:id="@+id/editButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/mainFragmentButtonMargin"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/roundedbutton"
+        android:padding="@dimen/mainFragmentButtonPadding"
+        android:text="Edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/viewButton"
+        app:layout_constraintStart_StartOf="@id/addButton"
+        app:layout_constraintTop_toBottomOf="@+id/addButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

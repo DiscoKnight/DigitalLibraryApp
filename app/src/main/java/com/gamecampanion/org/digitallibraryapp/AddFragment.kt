@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import androidx.navigation.fragment.findNavController
@@ -62,7 +63,7 @@ class AddFragment : Fragment() {
     private fun configLayoutGame(view: View, context: Context){
 
         print("smurf")
-       //var pSpiner: Spinner = view.findViewById(R.id.platformSpinner)
+//       var pSpiner: Spinner = view.findViewById(R.id.platformSpinner)
 //
 //        val s = resources.getStringArray(R.array.gamePlatform)
 //
