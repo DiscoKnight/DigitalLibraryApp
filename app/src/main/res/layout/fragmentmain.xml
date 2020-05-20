@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroudgradient"
-    android:padding="200dp">
+    android:background="@drawable/backgroudgradient">
 
     <Button
         android:id="@+id/addButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/buttonSize"
+        android:layout_height="@dimen/buttonSize"
         android:layout_margin="@dimen/mainFragmentButtonMargin"
         android:layout_marginLeft="80dp"
         android:layout_marginRight="@dimen/mainFragmentButtonPadding"
@@ -18,45 +17,57 @@
         android:gravity="center|center_horizontal"
         android:padding="@dimen/mainFragmentButtonPadding"
         android:text="@string/addString"
-        app:layout_constraintLeft_toleftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintRight_toLeftOf="@id/horizontalGuideline"
+        app:layout_constraintBottom_toBottomOf="@id/verticalGuideLine"/>
 
     <Button
         android:id="@+id/viewButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/buttonSize"
+        android:layout_height="@dimen/buttonSize"
         android:layout_margin="@dimen/mainFragmentButtonMargin"
         android:background="@drawable/roundedbutton"
         android:padding="@dimen/mainFragmentButtonPadding"
         android:text="@string/viewMenuItem"
-        app:layout_constraintLeft_toRightOf="@id/addButton"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintLeft_toLeftOf="@id/horizontalGuideline"
+        app:layout_constraintBottom_toTopOf="@id/verticalGuideLine" />
 
     <Button
         android:id="@+id/deleteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/buttonSize"
+        android:layout_height="@dimen/buttonSize"
         android:layout_margin="@dimen/mainFragmentButtonMargin"
         android:background="@drawable/roundedbutton"
         android:padding="@dimen/mainFragmentButtonPadding"
         android:text="Delete"
-
-        app:layout_constraintTop_toBottomOf="@+id/viewButton"
-        app:layout_constraintLeft_toLeftOf="@id/editButton"/>
+        app:layout_constraintLeft_toLeftOf="@id/horizontalGuideline"
+        app:layout_constraintTop_toBottomOf="@id/verticalGuideLine"/>
 
     <Button
         android:id="@+id/editButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/buttonSize"
+        android:layout_height="@dimen/buttonSize"
         android:layout_margin="@dimen/mainFragmentButtonMargin"
-        android:layout_marginEnd="28dp"
         android:background="@drawable/roundedbutton"
         android:padding="@dimen/mainFragmentButtonPadding"
         android:text="Edit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/viewButton"
-        app:layout_constraintStart_StartOf="@id/addButton"
-        app:layout_constraintTop_toBottomOf="@+id/addButton" />
+        app:layout_constraintRight_toLeftOf="@id/horizontalGuideline"
+        app:layout_constraintTop_toBottomOf="@id/verticalGuideLine" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalGuideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,4 +2,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="mainFragmentButtonPadding">25dp</dimen>
     <dimen name="mainFragmentButtonMargin">50dp</dimen>
+    <dimen name="buttonSize">250dp</dimen>
 </resources>
