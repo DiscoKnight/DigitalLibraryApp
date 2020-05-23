@@ -42,4 +42,17 @@
             app:exitAnim="@android:anim/slide_out_right" />
     </fragment>
 
+    <fragment
+        android:id="@+id/FourthFragment"
+        android:name="com.gamecampanion.org.digitallibraryapp.FragmentView"
+        android:label="Fourth Fragment"
+        android:layout="@layout/viewcollectionlayout">
+
+        <action
+            android:id="@+id/action_fourthFragment_to_ThirdFragment"
+            app:destination="@+id/ThirdFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"/>
+    </fragment>
+
 </navigation>

@@ -69,5 +69,7 @@
         app:layout_constraintGuide_percent="0.5"
         />
 
+    <include layout="@layout/toolbarbuttom"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

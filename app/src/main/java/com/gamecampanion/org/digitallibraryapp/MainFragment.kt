@@ -8,6 +8,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gamecampanion.org.digitallibraryapp.R.id.action_ThirdFrgment_to_SecondFragment
+import com.gamecampanion.org.digitallibraryapp.R.id.action_fourthFragment_to_ThirdFragment
 
 class MainFragment() : Fragment() {
 
@@ -22,9 +23,16 @@ class MainFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var id = view.id
+
         view.findViewById<Button>(R.id.addButton).setOnClickListener {
             findNavController().navigate(action_ThirdFrgment_to_SecondFragment)
         }
+
+        view.findViewById<Button>(R.id.viewButton).setOnClickListener {
+            findNavController().navigate(action_fourthFragment_to_ThirdFragment)
+        }
+
     }
 
 }

@@ -1,27 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/viewLayout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/viewLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ViewActivity"
-    android:background="@drawable/hdlightgreenbackgrounds">
+    android:background="@drawable/backgroudgradient"
+    tools:context=".ViewActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
+    <include layout="@layout/toolbarbuttom" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineHorizontalOne"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        tools:ignore="MissingConstraints">
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineHorizontalTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVerticalOne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVerticalTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <ImageButton
+        android:id="@+id/imageButtonLeft"
+        android:layout_width="200dp"
+        android:layout_height="400dp"
+        android:src="@drawable/forwardbutton1"
+        android:background="@drawable/roundedbutton"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineVerticalTwo"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineHorizontalOne"
+        app:layout_constraintBottom_toTopOf="@id/guidelineHorizontalTwo"
+        />
+
+    <ImageButton
+        android:id="@+id/imageButtonRight"
+        android:layout_width="200dp"
+        android:layout_height="400dp"
+        android:src="@drawable/reversebuttonone"
+        android:background="@drawable/roundedbutton"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineVerticalOne"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineHorizontalOne"
+        app:layout_constraintBottom_toTopOf="@id/guidelineHorizontalTwo"/>
+
+    <ImageSwitcher
+        android:id="@+id/imageswitcher"
+        android:layout_width="600dp"
+        android:layout_height="400dp"
+        android:background="@drawable/hdlightgreenbackgrounds"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineVerticalTwo"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineHorizontalOne"
+        app:layout_constraintBottom_toTopOf="@id/guidelineHorizontalTwo"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVerticalOne"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
