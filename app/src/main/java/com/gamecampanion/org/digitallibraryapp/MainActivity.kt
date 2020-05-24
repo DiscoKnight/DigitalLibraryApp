@@ -8,7 +8,6 @@ import androidx.room.Room
 import com.gamecampanion.org.digitallibraryapp.Database.game.GameDB
 import com.gamecampanion.org.digitallibraryapp.Database.movie.MovieDB
 import com.gamecampanion.org.digitallibraryapp.Database.music.MusicDB
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -21,11 +20,6 @@ class MainActivity : AppCompatActivity() {
         createGameDatabase()
         createMovieDatabase()
         createMusicDatabase()
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
 
     }
 
