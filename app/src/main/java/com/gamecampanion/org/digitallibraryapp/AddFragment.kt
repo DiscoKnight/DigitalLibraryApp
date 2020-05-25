@@ -24,7 +24,7 @@ class AddFragment : Fragment() {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_add, container, false)
 
-        var typeSpinner: Spinner = view.findViewById(R.id.typeCollection)
+        var typeSpinner: Spinner = view.findViewById(R.id.typeSpinner)
 
         typeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
