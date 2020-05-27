@@ -40,6 +40,12 @@ class AddFragment : Fragment() {
 
         }
 
+        var addButton: Button = view.findViewById(R.id.button_second);
+
+        addButton.setOnClickListener {
+            print("smurf")
+        }
+
         return view
     }
 
@@ -54,30 +60,19 @@ class AddFragment : Fragment() {
     private fun configLayout(index: Int, view: View, context: Context){
         when(index){
             0 -> configLayoutGame(view, context)
-            1 -> configLayoutMusic()
-            2 -> configLayoutMovie()
             else -> {}
         }
     }
 
     private fun configLayoutGame(view: View, context: Context){
-
         print("smurf")
-//       var pSpiner: Spinner = view.findViewById(R.id.platformSpinner)
-//
-//        val s = resources.getStringArray(R.array.gamePlatform)
-//
-//        val adapter = ArrayAdapter(context,
-//            android.R.layout.simple_spinner_item, s)
     }
 
-//    private fun ArrayAdapter(view: View, fragmentMain: Int, s: Array<String>): Any {
-//
-//    }
+    fun addToCollection(view: View){
+        print("smurf1");
+    }
 
-    private fun configLayoutMovie(){}
 
-    private fun configLayoutMusic(){}
 }
 
 
