@@ -15,12 +15,6 @@ class ViewActivity: AppCompatActivity() {
         setContentView(R.layout.viewcollectionlayout)
         setSupportActionBar(toolbar)
 
-//        var platFormSpinner: Spinner = findViewById(R.id.platformSpinner)
-//
-//        platFormSpinner.setOnClickListener {
-//                _ -> print("smurf")
-//        }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

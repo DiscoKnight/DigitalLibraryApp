@@ -75,7 +75,6 @@
         android:background="@drawable/roundedbutton"
         android:text="@string/addString"
         android:layout_margin="20dp"
-        android:onClick="addToCollection"
         app:layout_constraintTop_toBottomOf="@+id/guidelineVerticalAddOne"
         app:layout_constraintLeft_toRightOf="@+id/guidelineHorizontalAddTwo"
         />

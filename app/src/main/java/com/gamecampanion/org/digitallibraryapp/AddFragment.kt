@@ -1,21 +1,24 @@
 package com.gamecampanion.org.digitallibraryapp
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
-import androidx.navigation.fragment.findNavController
+import android.widget.*
+import java.lang.System.out
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class AddFragment : Fragment() {
+
+
+    lateinit var typeSpinner: Spinner
+
+    lateinit var genreSpinner: Spinner
+
+    lateinit var platformSpinner: Spinner
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -24,8 +27,13 @@ class AddFragment : Fragment() {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_add, container, false)
 
-        var typeSpinner: Spinner = view.findViewById(R.id.typeSpinner)
+        typeSpinner = view.findViewById(R.id.typeSpinner)
 
+        genreSpinner = view.findViewById(R.id.genreSpinner)
+
+        platformSpinner = view.findViewById(R.id.platformSpinner)
+
+        ///////////////////////////////////////////
         typeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 print("smurf")
@@ -33,12 +41,13 @@ class AddFragment : Fragment() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (view != null) {
-                    configLayout(position, view, view.context )
+                    configLayout(position)
                 }
-                print("smurf1")
             }
 
         }
+
+        /////////////////////////////////////////
 
         var addButton: Button = view.findViewById(R.id.button_second);
 
@@ -52,26 +61,23 @@ class AddFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.button_second).setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+    }
+
+    private fun configLayout(position : Int){
+        when(position){
+            0 -> configLayout(resources.getStringArray(R.array.gamePlatform), true)
+            1 -> configLayout(resources.getStringArray(R.array.musicGenre), false)
+            2 -> configLayout(resources.getStringArray(R.array.movieGenre), false)
         }
     }
 
-    private fun configLayout(index: Int, view: View, context: Context){
-        when(index){
-            0 -> configLayoutGame(view, context)
-            else -> {}
-        }
-    }
+    private fun configLayout(genreSpinnerArray: Array<String>, isEnabled: Boolean){
+            genreSpinner.isEnabled = isEnabled
 
-    private fun configLayoutGame(view: View, context: Context){
-        print("smurf")
+            platformSpinner.adapter = ArrayAdapter(this.requireContext(),
+                android.R.layout.simple_spinner_item,
+                genreSpinnerArray)
     }
-
-    fun addToCollection(view: View){
-        print("smurf1");
-    }
-
 
 }
 
