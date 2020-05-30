@@ -58,7 +58,7 @@
         android:layout_marginVertical="200dp"
       />
 
-    <CalendarView
+    <DatePicker
         android:id="@+id/calendarView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

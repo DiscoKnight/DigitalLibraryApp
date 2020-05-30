@@ -5,12 +5,13 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.gamecampanion.org.digitallibraryapp.digitallibrary.genres.GameGenreEnum
 import java.time.LocalDate
+import java.util.*
 
 @Entity
-data class GameEntity(@PrimaryKey val id: Int,
+data class GameEntity(@PrimaryKey(autoGenerate = true) val id: Int,
                       @ColumnInfo(name = "gameName") val gameName: String?,
                       @ColumnInfo(name = "platform") val platform: String?,
-                      @ColumnInfo(name = "releaseDate") val releaseDate: String ?,
+                      @ColumnInfo(name = "releaseDate") val releaseDate: String?,
                       @ColumnInfo(name = "rating") val rating: Int?,
                       @ColumnInfo(name = "genre") val genre: String?,
-                      @ColumnInfo(name = "isPreOrdered") val isPreordered: Int?)
+                      @ColumnInfo(name = "isPreOrdered") val isPreordered: Boolean?)

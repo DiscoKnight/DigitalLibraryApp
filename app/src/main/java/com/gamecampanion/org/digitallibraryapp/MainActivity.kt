@@ -17,9 +17,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        createGameDatabase()
-        createMovieDatabase()
-        createMusicDatabase()
+//        createGameDatabase()
+//        createMovieDatabase()
+//        createMusicDatabase()
 
     }
 
@@ -37,25 +37,25 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    private fun createMusicDatabase(){
-        val db = Room.databaseBuilder(
-            applicationContext,
-            MusicDB::class.java, "musicDB"
-        ).build()
-    }
-
-    private fun createGameDatabase(){
-        val db = Room.databaseBuilder(
-            applicationContext,
-            GameDB::class.java, "gameDB"
-        ).build()
-    }
-
-    private fun createMovieDatabase(){
-        val db = Room.databaseBuilder(
-            applicationContext,
-            MovieDB::class.java, "movieDB"
-        ).build()
-    }
+//    private fun createMusicDatabase(){
+//        val db = Room.databaseBuilder(
+//            applicationContext,
+//            MusicDB::class.java, "musicDB"
+//        ).build()
+//    }
+//
+//    private fun createGameDatabase(){
+//        val db = Room.databaseBuilder(
+//            applicationContext,
+//            GameDB::class.java, "gameDB"
+//        ).build()
+//    }
+//
+//    private fun createMovieDatabase(){
+//        val db = Room.databaseBuilder(
+//            applicationContext,
+//            MovieDB::class.java, "movieDB"
+//        ).build()
+//    }
 
 }
