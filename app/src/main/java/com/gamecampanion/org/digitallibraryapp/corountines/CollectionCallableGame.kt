@@ -4,7 +4,7 @@ import com.gamecampanion.org.digitallibraryapp.Database.game.GameDB
 import com.gamecampanion.org.digitallibraryapp.Database.game.GameEntity
 import java.util.concurrent.Callable
 
-class CollectionCallable(db: GameDB, entity: GameEntity) : Callable<Unit> {
+class CollectionCallableGame(db: GameDB, entity: GameEntity) : Callable<Unit> {
 
     private var db = db
 

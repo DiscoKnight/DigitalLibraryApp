@@ -14,4 +14,5 @@ data class GameEntity(@PrimaryKey(autoGenerate = true) val id: Int,
                       @ColumnInfo(name = "releaseDate") val releaseDate: String?,
                       @ColumnInfo(name = "rating") val rating: Int?,
                       @ColumnInfo(name = "genre") val genre: String?,
-                      @ColumnInfo(name = "isPreOrdered") val isPreordered: Boolean?)
+                      @ColumnInfo(name = "isPreOrdered") val isPreordered: Boolean?,
+                      @ColumnInfo(name = "urlString") val url: String?)

@@ -6,28 +6,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.view.get
 import androidx.room.CoroutinesRoom
 import androidx.room.Room
+import com.gamecampanion.org.digitallibraryapp.Database.DatabaseHelper
 import com.gamecampanion.org.digitallibraryapp.Database.game.GameDB
 import com.gamecampanion.org.digitallibraryapp.Database.game.GameEntity
 import com.gamecampanion.org.digitallibraryapp.Database.movie.MovieDB
+import com.gamecampanion.org.digitallibraryapp.Database.movie.MovieEntity
 import com.gamecampanion.org.digitallibraryapp.Database.music.MusicDB
-import com.gamecampanion.org.digitallibraryapp.corountines.CollectionCallable
-import com.gamecampanion.org.digitallibraryapp.digitallibrary.game.GameDao_Impl
+import com.gamecampanion.org.digitallibraryapp.Database.music.MusicEntity
+import com.gamecampanion.org.digitallibraryapp.corountines.CollectionCallableGame
+import com.gamecampanion.org.digitallibraryapp.corountines.CollectionCallableMovie
+import com.gamecampanion.org.digitallibraryapp.corountines.CollectionCallableMusic
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.text.DateFormat
-import java.util.*
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class AddFragment : Fragment() {
 
+    lateinit var databaseHelper: DatabaseHelper
 
     lateinit var typeSpinner: Spinner
 
@@ -66,7 +68,8 @@ class AddFragment : Fragment() {
 
         datePicker = view.findViewById(R.id.calendarView)
 
-        ///////////////////////////////////////////
+        databaseHelper = DatabaseHelper(view.context)
+
         typeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 print("smurf")
@@ -80,8 +83,6 @@ class AddFragment : Fragment() {
             }
 
         }
-
-        /////////////////////////////////////////
 
         var addButton: Button = view.findViewById(R.id.button_second);
 
@@ -116,62 +117,10 @@ class AddFragment : Fragment() {
     private fun addItemToDB(position: Int){
 
         when(position){
-            0 -> addItemGame()
-            1 -> print("")
-            2 -> print("")
+            0 -> databaseHelper.addItemGame("","", datePicker, ratingBar, "", true, "")
+            1 -> databaseHelper.addItemMusic()
+            2 -> databaseHelper.addItemMovie()
         }
-    }
-
-    private fun addItemGame(){
-        var platformName = platformSpinner.selectedItem.toString()
-        var name = nameEditText.text.toString()
-
-        var day: String = datePicker.month.toString() + "/" + datePicker.month + "/" + datePicker.year
-
-        val entity: GameEntity = GameEntity(0,
-            name,
-            platformName,
-            day,
-            ratingBar.numStars,
-            platformName,
-            true)
-
-        print("smurf")
-
-        var v = foo(entity)
-
-    }
-
-    private fun foo(entity: GameEntity) : Job {
-        //createGameDatabase().gameDao().insertGame(entity)
-
-        return runBlocking {
-            GlobalScope.launch(){
-                CoroutinesRoom.execute(createGameDatabase(), true, CollectionCallable(createGameDatabase(), entity))
-            }
-        }
-
-    }
-
-    private fun createMusicDatabase(): MusicDB{
-        return Room.databaseBuilder(
-            this.requireContext(),
-            MusicDB::class.java, "musicDB"
-        ).build()
-    }
-
-    private fun createGameDatabase() : GameDB{
-        return Room.databaseBuilder(
-            this.requireContext(),
-            GameDB::class.java, "gameDB"
-        ).build()
-    }
-
-    private fun createMovieDatabase() : MovieDB{
-        return Room.databaseBuilder(
-            this.requireContext(),
-            MovieDB::class.java, "movieDB"
-        ).build()
     }
 
 }

@@ -4,10 +4,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.room.Room
-import com.gamecampanion.org.digitallibraryapp.Database.game.GameDB
-import com.gamecampanion.org.digitallibraryapp.Database.movie.MovieDB
-import com.gamecampanion.org.digitallibraryapp.Database.music.MusicDB
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,10 +12,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
-//        createGameDatabase()
-//        createMovieDatabase()
-//        createMusicDatabase()
 
     }
 
@@ -36,26 +28,5 @@ class MainActivity : AppCompatActivity() {
 
         return true
     }
-
-//    private fun createMusicDatabase(){
-//        val db = Room.databaseBuilder(
-//            applicationContext,
-//            MusicDB::class.java, "musicDB"
-//        ).build()
-//    }
-//
-//    private fun createGameDatabase(){
-//        val db = Room.databaseBuilder(
-//            applicationContext,
-//            GameDB::class.java, "gameDB"
-//        ).build()
-//    }
-//
-//    private fun createMovieDatabase(){
-//        val db = Room.databaseBuilder(
-//            applicationContext,
-//            MovieDB::class.java, "movieDB"
-//        ).build()
-//    }
 
 }
