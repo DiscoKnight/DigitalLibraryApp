@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.gamecampanion.org.digitallibraryapp.digitallibrary.game.GameDao
 
-@Database(entities = arrayOf(GameEntity::class), version =  1)
+@Database(entities = arrayOf(GameEntity::class), version =  2)
 abstract class GameDB : RoomDatabase() {
         abstract fun gameDao(): GameDao
 

@@ -1,4 +1,4 @@
-package com.gamecampanion.org.digitallibraryapp.corountines
+package com.gamecampanion.org.digitallibraryapp.corountines.movie
 
 import com.gamecampanion.org.digitallibraryapp.Database.movie.MovieDB
 import com.gamecampanion.org.digitallibraryapp.Database.movie.MovieEntity

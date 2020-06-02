@@ -1,28 +1,12 @@
 package com.gamecampanion.org.digitallibraryapp
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.room.CoroutinesRoom
-import androidx.room.Room
+import androidx.fragment.app.Fragment
 import com.gamecampanion.org.digitallibraryapp.Database.DatabaseHelper
-import com.gamecampanion.org.digitallibraryapp.Database.game.GameDB
-import com.gamecampanion.org.digitallibraryapp.Database.game.GameEntity
-import com.gamecampanion.org.digitallibraryapp.Database.movie.MovieDB
-import com.gamecampanion.org.digitallibraryapp.Database.movie.MovieEntity
-import com.gamecampanion.org.digitallibraryapp.Database.music.MusicDB
-import com.gamecampanion.org.digitallibraryapp.Database.music.MusicEntity
-import com.gamecampanion.org.digitallibraryapp.corountines.CollectionCallableGame
-import com.gamecampanion.org.digitallibraryapp.corountines.CollectionCallableMovie
-import com.gamecampanion.org.digitallibraryapp.corountines.CollectionCallableMusic
-import kotlinx.android.synthetic.main.fragment_add.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -48,8 +32,8 @@ class AddFragment : Fragment() {
     lateinit var datePicker: DatePicker
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_add, container, false)
@@ -70,12 +54,17 @@ class AddFragment : Fragment() {
 
         databaseHelper = DatabaseHelper(view.context)
 
-        typeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        typeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 print("smurf")
             }
 
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 if (view != null) {
                     positionIndex = position
                     configLayout(position)
@@ -87,6 +76,7 @@ class AddFragment : Fragment() {
         var addButton: Button = view.findViewById(R.id.button_second);
 
         addButton.setOnClickListener {
+            addButton.isEnabled = false
             addItemToDB(positionIndex)
         }
 
@@ -98,30 +88,43 @@ class AddFragment : Fragment() {
 
     }
 
-    private fun configLayout(position : Int){
-        when(position){
+    private fun configLayout(position: Int) {
+        when (position) {
             0 -> configLayout(resources.getStringArray(R.array.gamePlatform), true)
             1 -> configLayout(resources.getStringArray(R.array.musicGenre), false)
             2 -> configLayout(resources.getStringArray(R.array.movieGenre), false)
         }
     }
 
-    private fun configLayout(genreSpinnerArray: Array<String>, isEnabled: Boolean){
-            genreSpinner.isEnabled = isEnabled
+    private fun configLayout(genreSpinnerArray: Array<String>, isEnabled: Boolean) {
+        genreSpinner.isEnabled = isEnabled
 
-            platformSpinner.adapter = ArrayAdapter(this.requireContext(),
-                android.R.layout.simple_spinner_item,
-                genreSpinnerArray)
+        platformSpinner.adapter = ArrayAdapter(
+            this.requireContext(),
+            android.R.layout.simple_spinner_item,
+            genreSpinnerArray
+        )
     }
 
-    private fun addItemToDB(position: Int){
+    private fun addItemToDB(position: Int) {
 
-        when(position){
-            0 -> databaseHelper.addItemGame("","", datePicker, ratingBar, "", true, "")
+        when (position) {
+            0 -> databaseHelper.runGameDBInsert(
+                databaseHelper.createItemGame(
+                    name.text.toString(),
+                    platformSpinner.selectedItem.toString(),
+                    datePicker,
+                    ratingBar,
+                    genreSpinner.selectedItem.toString(),
+                    true,
+                    url.text.toString()
+                )
+            )
             1 -> databaseHelper.addItemMusic()
             2 -> databaseHelper.addItemMovie()
         }
     }
+
 
 }
 

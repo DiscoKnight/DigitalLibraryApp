@@ -5,15 +5,17 @@ import android.widget.DatePicker
 import android.widget.RatingBar
 import androidx.room.CoroutinesRoom
 import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.gamecampanion.org.digitallibraryapp.Database.game.GameDB
 import com.gamecampanion.org.digitallibraryapp.Database.game.GameEntity
 import com.gamecampanion.org.digitallibraryapp.Database.movie.MovieDB
 import com.gamecampanion.org.digitallibraryapp.Database.movie.MovieEntity
 import com.gamecampanion.org.digitallibraryapp.Database.music.MusicDB
 import com.gamecampanion.org.digitallibraryapp.Database.music.MusicEntity
-import com.gamecampanion.org.digitallibraryapp.corountines.CollectionCallableGame
-import com.gamecampanion.org.digitallibraryapp.corountines.CollectionCallableMovie
-import com.gamecampanion.org.digitallibraryapp.corountines.CollectionCallableMusic
+import com.gamecampanion.org.digitallibraryapp.corountines.game.CollectionCallableGame_Insert
+import com.gamecampanion.org.digitallibraryapp.corountines.movie.CollectionCallableMovie
+import com.gamecampanion.org.digitallibraryapp.corountines.music.CollectionCallableMusic
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -23,57 +25,83 @@ class DatabaseHelper(context: Context) {
 
     var context: Context = context
 
-    fun addItemGame(nameEditText : String,
-                    platform: String,
-                    datePicker: DatePicker,
-                    ratingBar: RatingBar,
-                    genre: String,
-                    isPreOrdered: Boolean,
-                    urlText: String): GameEntity{
-        return GameEntity(0,
+    fun createItemGame(
+        nameEditText: String,
+        platform: String,
+        datePicker: DatePicker,
+        ratingBar: RatingBar,
+        genre: String,
+        isPreOrdered: Boolean,
+        urlText: String
+    ): GameEntity {
+        return GameEntity(
+            0,
             nameEditText,
             platform,
             datePicker.month.toString() + "/" + datePicker.month + "/" + datePicker.year,
             ratingBar.numStars,
             genre,
             true,
-            urlText)
+            urlText
+        )
 
     }
 
-    fun addItemMusic(){}
+    fun addItemMusic() {}
 
-    fun addItemMovie(){}
+    fun addItemMovie() {}
 
-    fun runGameDBInsert(entity: GameEntity) : Job {
+    suspend fun getGamesFromDB(): List<GameEntity> {
+        return createGameDatabase().gameDao().getAllGames()
+    }
+
+    /////////////////////////////////////////////////////////////
+
+    fun runGameDBInsert(entity: GameEntity): Job {
         return runBlocking {
-            GlobalScope.launch(){
-                CoroutinesRoom.execute(createGameDatabase(context),
+            GlobalScope.launch() {
+                CoroutinesRoom.execute(
+                    createGameDatabase(),
                     true,
-                    CollectionCallableGame(createGameDatabase(context),
-                        entity))
+                    CollectionCallableGame_Insert(
+                        createGameDatabase(),
+                        entity
+                    )
+                )
             }
         }
 
     }
 
-    fun runMusicDBInsert(entity: MusicEntity) : Job {
+    fun runMusicDBInsert(entity: MusicEntity): Job {
         return runBlocking {
-            GlobalScope.launch(){
-                CoroutinesRoom.execute(createMusicDatabase(context), true, CollectionCallableMusic(createMusicDatabase(context), entity))
+            GlobalScope.launch() {
+                CoroutinesRoom.execute(
+                    createMusicDatabase(context),
+                    true,
+                    CollectionCallableMusic(
+                        createMusicDatabase(context),
+                        entity
+                    )
+                )
             }
         }
     }
 
-    fun runMovieDBInsert(entity: MovieEntity) : Job {
+    fun runMovieDBInsert(entity: MovieEntity): Job {
         return runBlocking {
-            GlobalScope.launch(){
-                CoroutinesRoom.execute(createMovieDatabase(context), true, CollectionCallableMovie(createMovieDatabase(context), entity))
+            GlobalScope.launch() {
+                CoroutinesRoom.execute(
+                    createMovieDatabase(context),
+                    true,
+                    CollectionCallableMovie(
+                        createMovieDatabase(context),
+                        entity
+                    )
+                )
             }
         }
     }
-
-    ////////////////////////////////////////////////////////////////
 
     private fun createMusicDatabase(context: Context): MusicDB {
         return Room.databaseBuilder(
@@ -82,14 +110,25 @@ class DatabaseHelper(context: Context) {
         ).build()
     }
 
-    private fun createGameDatabase(context: Context) : GameDB {
+    ///////////////////////////////////////////////////////////////////
+
+    fun createGameDatabase(): GameDB {
         return Room.databaseBuilder(
             context,
-            GameDB::class.java, "gameDB"
-        ).build()
+            GameDB::class.java,
+            "gameDB"
+        ).addMigrations(MIGRATION_1_2).build()
     }
 
-    private fun createMovieDatabase(context: Context) : MovieDB {
+    val MIGRATION_1_2 = object : Migration(1,2){
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("ALTER TABLE GameEntity ADD COLUMN urlString TEXT")
+        }
+    }
+
+    /////////////////////////////////////////////////////////////
+
+    private fun createMovieDatabase(context: Context): MovieDB {
         return Room.databaseBuilder(
             context,
             MovieDB::class.java, "movieDB"

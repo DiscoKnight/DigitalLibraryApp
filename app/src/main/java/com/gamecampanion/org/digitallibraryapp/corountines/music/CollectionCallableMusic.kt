@@ -1,4 +1,4 @@
-package com.gamecampanion.org.digitallibraryapp.corountines
+package com.gamecampanion.org.digitallibraryapp.corountines.music
 
 import com.gamecampanion.org.digitallibraryapp.Database.music.MusicDB
 import com.gamecampanion.org.digitallibraryapp.Database.music.MusicEntity
