@@ -16,14 +16,12 @@ import com.gamecampanion.org.digitallibraryapp.Database.music.MusicEntity
 import com.gamecampanion.org.digitallibraryapp.corountines.game.CollectionCallableGame_Insert
 import com.gamecampanion.org.digitallibraryapp.corountines.movie.CollectionCallableMovie
 import com.gamecampanion.org.digitallibraryapp.corountines.music.CollectionCallableMusic
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 
 class DatabaseHelper(context: Context) {
 
     var context: Context = context
+    var gameList: List<GameEntity> = ArrayList()
 
     fun createItemGame(
         nameEditText: String,
@@ -51,8 +49,18 @@ class DatabaseHelper(context: Context) {
 
     fun addItemMovie() {}
 
-    suspend fun getGamesFromDB(): List<GameEntity> {
-        return createGameDatabase().gameDao().getAllGames()
+    fun getGamesFromDB(): List<GameEntity> {
+
+        runBlocking{
+            val v = GlobalScope.async {
+                gameList = createGameDatabase().gameDao().getAllGames()
+            }
+
+            v.await()
+        }
+
+        return gameList
+
     }
 
     /////////////////////////////////////////////////////////////
@@ -120,7 +128,7 @@ class DatabaseHelper(context: Context) {
         ).addMigrations(MIGRATION_1_2).build()
     }
 
-    val MIGRATION_1_2 = object : Migration(1,2){
+    private val MIGRATION_1_2 = object : Migration(1,2){
         override fun migrate(database: SupportSQLiteDatabase) {
             database.execSQL("ALTER TABLE GameEntity ADD COLUMN urlString TEXT")
         }

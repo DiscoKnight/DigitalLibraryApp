@@ -49,6 +49,18 @@
         app:layout_constraintBottom_toTopOf="@id/guidelineHorizontalTwo"
         />
 
+    <TextView
+        android:id="@+id/infoView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:textSize="40dp"
+        android:layout_margin="40dp"
+        android:textColor="@color/textColour"
+        app:layout_constraintLeft_toLeftOf="@+id/imageswitcher"
+        app:layout_constraintTop_toTopOf="@+id/imageswitcher"
+        android:translationZ="180dp"
+        android:textAllCaps="true"/>
+
     <ImageButton
         android:id="@+id/imageButtonRight"
         android:layout_width="200dp"
