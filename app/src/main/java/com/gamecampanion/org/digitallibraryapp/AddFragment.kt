@@ -73,7 +73,7 @@ class AddFragment : Fragment() {
 
         }
 
-        var addButton: Button = view.findViewById(R.id.button_second);
+        var addButton: Button = view.findViewById(R.id.button_second)
 
         addButton.setOnClickListener {
             addButton.isEnabled = false
@@ -121,7 +121,7 @@ class AddFragment : Fragment() {
                 )
             )
             1 -> databaseHelper.addItemMusic()
-            2 -> databaseHelper.addItemMovie()
+            //2 -> databaseHelper.addItemMovie()
         }
     }
 

@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.gamecampanion.org.digitallibraryapp.R.id.action_ThirdFrgment_to_SecondFragment
-import com.gamecampanion.org.digitallibraryapp.R.id.action_fourthFragment_to_ThirdFragment
+import com.gamecampanion.org.digitallibraryapp.R.id.*
 
 class MainFragment() : Fragment() {
 
@@ -29,6 +28,10 @@ class MainFragment() : Fragment() {
 
         view.findViewById<Button>(R.id.viewButton).setOnClickListener {
             findNavController().navigate(action_fourthFragment_to_ThirdFragment)
+        }
+
+        view.findViewById<Button>(R.id.deleteButton).setOnClickListener {
+            findNavController().navigate(action_mainFragment_to_DeleteFragment)
         }
 
     }

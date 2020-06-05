@@ -47,11 +47,17 @@ class DatabaseHelper(context: Context) {
 
     fun addItemMusic() {}
 
-    fun addItemMovie() {}
+    fun deleteItemMovie(game: GameEntity) {
+        runBlocking {
+            GlobalScope.launch {
+               createGameDatabase().gameDao().deleteGame(game)
+            }
+        }
+    }
 
     fun getGamesFromDB(): List<GameEntity> {
 
-        runBlocking{
+        runBlocking {
             val v = GlobalScope.async {
                 gameList = createGameDatabase().gameDao().getAllGames()
             }
@@ -128,7 +134,7 @@ class DatabaseHelper(context: Context) {
         ).addMigrations(MIGRATION_1_2).build()
     }
 
-    private val MIGRATION_1_2 = object : Migration(1,2){
+    private val MIGRATION_1_2 = object : Migration(1, 2) {
         override fun migrate(database: SupportSQLiteDatabase) {
             database.execSQL("ALTER TABLE GameEntity ADD COLUMN urlString TEXT")
         }

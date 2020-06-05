@@ -47,6 +47,12 @@
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right" />
 
+        <action
+            android:id="@+id/action_mainFragment_to_DeleteFragment"
+            app:destination="@+id/DeleteFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"/>
+
     </fragment>
 
     <fragment
@@ -54,6 +60,14 @@
         android:name="com.gamecampanion.org.digitallibraryapp.FragmentView"
         android:label="Fourth Fragment"
         android:layout="@layout/viewcollectionlayout">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/DeleteFragment"
+        android:name="com.gamecampanion.org.digitallibraryapp.DeleteFragment"
+        android:label="Delete Fragment"
+        android:layout="@layout/deletefragment">
 
     </fragment>
 
