@@ -29,12 +29,11 @@ class DeleteFragment : Fragment() {
         databaseHelper = DatabaseHelper(view.context)
 
         button.setOnClickListener {
-            print("smurf")
             button.isEnabled = false
 
-            var g: GameEntity = deleteSpinner.selectedItem as GameEntity
+            var g = deleteSpinner.selectedItem as String
 
-            databaseHelper.deleteItemMovie(g)
+            delete(g)
         }
 
         deleteSpinner.adapter = ArrayAdapter(
@@ -52,15 +51,19 @@ class DeleteFragment : Fragment() {
     }
 
     private fun createAndPopulate(): Array<Any> {
-        var li = ArrayList<GameEntity>()
-
-        var counter = 0
+        var li = ArrayList<String>()
 
         for(name in databaseHelper.getGamesFromDB()){
-            name?.let { li.add(it) }
+            name.gameName?.let { li.add(it) }
         }
 
         return li.toArray()
+    }
+
+    private fun delete(name: String){
+        var entity = databaseHelper.getGamesFromDB().find { e -> e.gameName == name }
+
+        entity?.let { databaseHelper.deleteItemMovie(it) }
     }
 
 }
