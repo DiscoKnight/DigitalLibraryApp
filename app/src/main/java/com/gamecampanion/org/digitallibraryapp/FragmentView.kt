@@ -30,6 +30,8 @@ class FragmentView : Fragment() {
     lateinit var dbHelper: DatabaseHelper
     lateinit var bitmapDrawable: BitmapDrawable
     lateinit var imgView: ImageView
+    var counter: Int = 0
+    lateinit var imageSwitcher: ImageSwitcher
 
     val images = intArrayOf(
         R.drawable.gow1,
@@ -43,17 +45,18 @@ class FragmentView : Fragment() {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.viewcollectionlayout, container, false)
 
+        imageSwitcher = view.findViewById(R.id.imageswitcher)
+
         textViewInfo = view.findViewById(R.id.infoView);
 
         dbHelper = DatabaseHelper(view.context)
 
         gameList = dbHelper.getGamesFromDB()
 
-        var counter: Int = 0
-
         getInfoText(counter)
 
-        val imageSwitcher: ImageSwitcher = view.findViewById(R.id.imageswitcher)
+        //loadImageFromUrl(gameList[counter])
+
         imageSwitcher.setFactory {
             imgView = ImageView(this.context)
             imgView.scaleType = ImageView.ScaleType.FIT_CENTER
@@ -66,22 +69,18 @@ class FragmentView : Fragment() {
 
         leftButton.setOnClickListener {
 
-//            if (counter == (images.size - 1)) {
-//                counter = 0
-//                imageSwitcher.setImageResource(images[counter])
-//                getInfoText(counter)
-//            } else {
-//                imageSwitcher.setImageResource(images[counter.inc()])
-//                counter = counter.inc()
-//                getInfoText(counter)
-//            }
-
             counter = counter.inc()
 
-            while(counter > 0 && counter < gameList.size){
+            if(counter < gameList.size){
                 getInfoText(counter)
                 loadImageFromUrl(gameList[counter])
             }
+            else if(counter == gameList.size){
+                counter = 0
+                getInfoText(counter)
+                loadImageFromUrl(gameList[counter])
+            }
+
         }
 
         return view
@@ -106,7 +105,7 @@ class FragmentView : Fragment() {
             r.await()
         }
 
-        imageswitcher.setImageDrawable(bitmapDrawable.current)
+        imageSwitcher.setImageDrawable(bitmapDrawable.current)
 
         print("smurf1")
 
