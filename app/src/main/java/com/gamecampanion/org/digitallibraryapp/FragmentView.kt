@@ -107,8 +107,6 @@ class FragmentView : Fragment() {
 
         imageSwitcher.setImageDrawable(bitmapDrawable.current)
 
-        print("smurf1")
-
     }
 
 

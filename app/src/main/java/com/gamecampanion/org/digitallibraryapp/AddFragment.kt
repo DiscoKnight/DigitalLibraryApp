@@ -55,8 +55,9 @@ class AddFragment : Fragment() {
         databaseHelper = DatabaseHelper(view.context)
 
         typeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                print("smurf")
+
             }
 
             override fun onItemSelected(

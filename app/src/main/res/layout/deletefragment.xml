@@ -13,24 +13,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
-        android:padding="10dp"
+        android:padding="30dp"
+        android:layout_margin="50dp"
         app:layout_constraintBottom_toTopOf="@id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
         android:id="@+id/deleteImageButton"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:background="@drawable/roundedbutton"
+        android:gravity="center|center_vertical"
         android:text="@string/deleteButtonText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline"
-        android:layout_marginTop="50dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
-    <include layout="@layout/toolbarbuttom" />
+    <include layout="@layout/toolbarbuttom"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

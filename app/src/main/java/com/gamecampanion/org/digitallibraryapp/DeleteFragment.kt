@@ -10,6 +10,8 @@ import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import com.gamecampanion.org.digitallibraryapp.Database.DatabaseHelper
 import com.gamecampanion.org.digitallibraryapp.Database.game.GameEntity
+import java.util.*
+import kotlin.collections.ArrayList
 
 class DeleteFragment : Fragment() {
 
@@ -53,8 +55,8 @@ class DeleteFragment : Fragment() {
     private fun createAndPopulate(): Array<Any> {
         var li = ArrayList<String>()
 
-        for(name in databaseHelper.getGamesFromDB()){
-            name.gameName?.let { li.add(it) }
+        for(name in databaseHelper.getGamesFromDB()) {
+            name.gameName?.toUpperCase()?.let{ li.add(it) }
         }
 
         return li.toArray()
