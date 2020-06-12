@@ -10,11 +10,30 @@
 
     <include layout="@layout/toolbarbuttom" />
 
+    <Spinner
+        android:id="@+id/typeFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/filterTypes"
+        android:layout_margin="25dp"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineVerticalOne"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontalOne"/>
+
+    <Spinner
+        android:id="@+id/typeFilterResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/gamePlatform"
+        android:layout_margin="25dp"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineVerticalTwo"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontalOne"/>
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineHorizontalOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_margin="50dp"
         app:layout_constraintGuide_percent="0.2" />
 
     <androidx.constraintlayout.widget.Guideline
