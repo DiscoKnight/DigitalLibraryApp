@@ -47,7 +47,7 @@ class DatabaseHelper(context: Context) {
 
     fun addItemMusic() {}
 
-    fun deleteItemMovie(game: GameEntity) {
+    fun deleteItemGame(game: GameEntity) {
         runBlocking {
             GlobalScope.launch {
                createGameDatabase().gameDao().deleteGame(game)

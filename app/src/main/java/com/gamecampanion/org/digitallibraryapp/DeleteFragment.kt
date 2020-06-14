@@ -9,8 +9,6 @@ import android.widget.Button
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import com.gamecampanion.org.digitallibraryapp.Database.DatabaseHelper
-import com.gamecampanion.org.digitallibraryapp.Database.game.GameEntity
-import java.util.*
 import kotlin.collections.ArrayList
 
 class DeleteFragment : Fragment() {
@@ -63,9 +61,10 @@ class DeleteFragment : Fragment() {
     }
 
     private fun delete(name: String){
-        var entity = databaseHelper.getGamesFromDB().find { e -> e.gameName == name }
 
-        entity?.let { databaseHelper.deleteItemMovie(it) }
+        var entity = databaseHelper.getGamesFromDB().stream().filter { e -> e.gameName!!.toUpperCase()!!.contentEquals(name) }.findFirst()
+
+        entity?.let { databaseHelper.deleteItemGame(it.get()) }
     }
 
 }

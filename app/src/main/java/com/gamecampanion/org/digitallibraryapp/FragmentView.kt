@@ -1,5 +1,8 @@
 package com.gamecampanion.org.digitallibraryapp
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.content.res.Resources
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
@@ -14,15 +17,18 @@ import com.squareup.picasso.Picasso
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
-import java.util.*
+import java.time.LocalDate
+import java.time.Period
+import java.time.format.DateTimeFormatter
+import java.util.regex.Pattern
 import java.util.stream.Collectors
 import android.view.ViewGroup as ViewGroup1
 
 class FragmentView : Fragment() {
 
     lateinit var textViewInfo: TextView
-    lateinit var gameList: List<GameEntity>// = ArrayList()
-    lateinit var gameListFilter: List<GameEntity>
+    var gameList: List<GameEntity> = ArrayList()
+    lateinit var gameListFilter: List<GameEntity>// = ArrayList()
     lateinit var dbHelper: DatabaseHelper
     lateinit var bitmapDrawable: BitmapDrawable
     lateinit var imgView: ImageView
@@ -66,24 +72,21 @@ class FragmentView : Fragment() {
             imgView.setPadding(8, 8, 8, 8)
             imgView
         }
+
         imageSwitcher.setImageResource(images[counter])
 
         val leftButton: ImageButton = view.findViewById(R.id.imageButtonLeft)
 
         leftButton.setOnClickListener {
 
-            filterByRating(4)
-
             counter = counter.inc()
 
-            if(counter <= gameListFilter.size - 1){
-                getInfoText(counter, gameListFilter)
-                loadImageFromUrl(gameListFilter[counter])
-            }
-            else{
+            if (counter <= gameListFilter.size - 1) {
+                buttonClick(view)
+            } else {
                 counter = 0
-                getInfoText(counter, gameListFilter)
-                loadImageFromUrl(gameListFilter[counter])
+                buttonClick(view)
+
             }
 
         }
@@ -101,7 +104,7 @@ class FragmentView : Fragment() {
                 id: Long
             ) {
                 if (view != null) {
-                    when(position){
+                    when (position) {
                         0 -> setUpPlatform()
                         1 -> setUpRating()
                     }
@@ -113,7 +116,14 @@ class FragmentView : Fragment() {
         return view
     }
 
-    private fun setUpPlatform(){
+    private fun buttonClick(view: View) {
+        getInfoText(counter, gameListFilter)
+        loadImageFromUrl(gameListFilter[counter])
+
+        createDaysToReleasePrompt(view.context, gameListFilter[counter])
+    }
+
+    private fun setUpPlatform() {
         typeFilterResultSpinner.isEnabled = true
 
         typeFilterResultSpinner.adapter = ArrayAdapter(
@@ -122,59 +132,61 @@ class FragmentView : Fragment() {
             resources.getStringArray(R.array.gamePlatform)
         )
 
-        typeFilterResultSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        typeFilterResultSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                if (view != null) {
-                    var filterResult = typeFilterResultSpinner.selectedItem as String
-
-                    filterByPlatform(filterResult)
+                override fun onNothingSelected(parent: AdapterView<*>?) {
 
                 }
-            }
 
-        }
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    if (view != null) {
+                        var filterResult = typeFilterResultSpinner.selectedItem as String
+
+                        filterByPlatform(filterResult)
+
+                    }
+                }
+
+            }
 
 
     }
 
-    private fun setUpRating(){
+    private fun setUpRating() {
         typeFilterResultSpinner.adapter = ArrayAdapter(
             this.requireContext(),
             android.R.layout.simple_spinner_item,
             resources.getStringArray(R.array.ratingTypes)
         )
 
-        typeFilterResultSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        typeFilterResultSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                if (view != null) {
-                    var filterResult = typeFilterResultSpinner.selectedItem as String
-
-                    filterByRating(Character.getNumericValue(filterResult[filterResult.length - 1].toInt()))
+                override fun onNothingSelected(parent: AdapterView<*>?) {
 
                 }
-            }
 
-        }
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    if (view != null) {
+                        var filterResult = typeFilterResultSpinner.selectedItem as String
+
+                        filterByRating(Character.getNumericValue(filterResult[filterResult.length - 1].toInt()))
+
+                    }
+                }
+
+            }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -186,11 +198,12 @@ class FragmentView : Fragment() {
         textViewInfo.setText(gameList[counter].gameName + "\n" + gameList[counter].platform + "\n" + gameList[counter].genre)
     }
 
-    private fun loadImageFromUrl(gameEntity: GameEntity){
+    private fun loadImageFromUrl(gameEntity: GameEntity) {
 
         runBlocking {
             var r = GlobalScope.async {
-                bitmapDrawable = Picasso.get().load(gameEntity.url).get().toDrawable(Resources.getSystem())
+                bitmapDrawable =
+                    Picasso.get().load(gameEntity.url).get().toDrawable(Resources.getSystem())
             }
 
             r.await()
@@ -200,18 +213,37 @@ class FragmentView : Fragment() {
 
     }
 
-    private fun filterByPlatform(platform: String){
-        gameList = dbHelper.getGamesFromDB()
-
-        gameListFilter = gameList.stream().filter { e -> e.platform.equals(platform)}.collect(Collectors.toList())
+    private fun filterByPlatform(platform: String) {
+        gameListFilter = gameList.stream().filter { e -> e.platform.equals(platform) }.collect(Collectors.toList())
 
     }
 
-    private fun filterByRating(rating: Int){
-        gameList = dbHelper.getGamesFromDB()
+    private fun filterByRating(rating: Int) {
+        gameListFilter = gameList.stream().filter { e -> e.rating!! >= rating }.collect(Collectors.toList())
 
-        gameList = gameList.stream().filter { e -> e.rating!! >= rating}.collect(Collectors.toList())
+    }
 
+    private fun createDaysToReleasePrompt(context: Context, gameEntity: GameEntity) {
+        var lis = gameEntity.releaseDate.toString().split(Pattern.compile("\\W"), 0)
+
+        var daysBetween = Period.between(
+            LocalDate.parse(
+                String.format(
+                    "%s-%s-%s",
+                    lis.get(2),
+                    lis.get(1),
+                    lis.get(0)
+                ), DateTimeFormatter.ofPattern("yyyy-d-M")
+            ), LocalDate.now()
+        ).days
+
+        var dialog = AlertDialog.Builder(context, R.style.MyDialogTheme)
+
+        dialog.setTitle(R.string.dialogTitle)
+        dialog.setMessage(String.format("%s days to release", daysBetween))
+        dialog.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+
+        dialog.show()
     }
 
 

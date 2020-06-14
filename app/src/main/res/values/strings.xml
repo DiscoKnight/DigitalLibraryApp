@@ -12,6 +12,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="app_view">Digital Library - View</string>
     <string name="deleteButtonText">Delete</string>
+    <string name="dialogTitle">Time to release</string>
 
     <string-array name="typeCollections">
         <item>Game</item>
