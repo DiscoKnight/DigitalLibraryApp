@@ -1,8 +1,5 @@
 package com.gamecampanion.org.digitallibraryapp
 
-import android.app.AlertDialog
-import android.content.Context
-import android.content.DialogInterface
 import android.content.res.Resources
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
@@ -13,15 +10,12 @@ import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import com.gamecampanion.org.digitallibraryapp.Database.DatabaseHelper
 import com.gamecampanion.org.digitallibraryapp.Database.game.GameEntity
+import com.gamecampanion.org.digitallibraryapp.digitallibrary.ViewFunctions
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import java.time.LocalDate
-import java.time.Period
-import java.time.format.DateTimeFormatter
-import java.util.regex.Pattern
-import java.util.stream.Collectors
 import android.view.ViewGroup as ViewGroup1
 
 class FragmentView : Fragment() {
@@ -36,6 +30,8 @@ class FragmentView : Fragment() {
     lateinit var imageSwitcher: ImageSwitcher
     lateinit var typeFilterSpinner: Spinner
     lateinit var typeFilterResultSpinner: Spinner
+    val viewFunction =
+        ViewFunctions()
 
     val images = intArrayOf(
         R.drawable.gow1,
@@ -62,7 +58,7 @@ class FragmentView : Fragment() {
 
         gameList = dbHelper.getGamesFromDB()
 
-        getInfoText(counter, gameList)
+        viewFunction.getInfoText(counter, gameList, textViewInfo)
 
         //loadImageFromUrl(gameList[counter])
 
@@ -117,10 +113,11 @@ class FragmentView : Fragment() {
     }
 
     private fun buttonClick(view: View) {
-        getInfoText(counter, gameListFilter)
+        viewFunction.getInfoText(counter, gameListFilter, textViewInfo)
         loadImageFromUrl(gameListFilter[counter])
 
-        createDaysToReleasePrompt(view.context, gameListFilter[counter])
+        //viewFunction.createAlertDialog(view.context, viewFunction.createDaysToReleasePrompt(gameListFilter[counter],LocalDate.now().toString()))
+
     }
 
     private fun setUpPlatform() {
@@ -148,7 +145,7 @@ class FragmentView : Fragment() {
                     if (view != null) {
                         var filterResult = typeFilterResultSpinner.selectedItem as String
 
-                        filterByPlatform(filterResult)
+                        gameListFilter = viewFunction.filterByPlatform(filterResult,gameList)
 
                     }
                 }
@@ -181,7 +178,9 @@ class FragmentView : Fragment() {
                     if (view != null) {
                         var filterResult = typeFilterResultSpinner.selectedItem as String
 
-                        filterByRating(Character.getNumericValue(filterResult[filterResult.length - 1].toInt()))
+                        //viewFunction.filterByRating(Character.getNumericValue(filterResult[filterResult.length - 1].toInt()))
+
+                        gameListFilter = viewFunction.filterByRating(Character.getNumericValue(filterResult[filterResult.length - 1].toInt()), gameList)
 
                     }
                 }
@@ -192,10 +191,6 @@ class FragmentView : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-    }
-
-    private fun getInfoText(counter: Int, gameList: List<GameEntity>) {
-        textViewInfo.setText(gameList[counter].gameName + "\n" + gameList[counter].platform + "\n" + gameList[counter].genre)
     }
 
     private fun loadImageFromUrl(gameEntity: GameEntity) {
@@ -212,39 +207,5 @@ class FragmentView : Fragment() {
         imageSwitcher.setImageDrawable(bitmapDrawable.current)
 
     }
-
-    private fun filterByPlatform(platform: String) {
-        gameListFilter = gameList.stream().filter { e -> e.platform.equals(platform) }.collect(Collectors.toList())
-
-    }
-
-    private fun filterByRating(rating: Int) {
-        gameListFilter = gameList.stream().filter { e -> e.rating!! >= rating }.collect(Collectors.toList())
-
-    }
-
-    private fun createDaysToReleasePrompt(context: Context, gameEntity: GameEntity) {
-        var lis = gameEntity.releaseDate.toString().split(Pattern.compile("\\W"), 0)
-
-        var daysBetween = Period.between(
-            LocalDate.parse(
-                String.format(
-                    "%s-%s-%s",
-                    lis.get(2),
-                    lis.get(1),
-                    lis.get(0)
-                ), DateTimeFormatter.ofPattern("yyyy-d-M")
-            ), LocalDate.now()
-        ).days
-
-        var dialog = AlertDialog.Builder(context, R.style.MyDialogTheme)
-
-        dialog.setTitle(R.string.dialogTitle)
-        dialog.setMessage(String.format("%s days to release", daysBetween))
-        dialog.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
-
-        dialog.show()
-    }
-
 
 }

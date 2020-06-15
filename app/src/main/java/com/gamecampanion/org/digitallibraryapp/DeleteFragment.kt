@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import com.gamecampanion.org.digitallibraryapp.Database.DatabaseHelper
-import kotlin.collections.ArrayList
 
 class DeleteFragment : Fragment() {
 
@@ -31,9 +30,9 @@ class DeleteFragment : Fragment() {
         button.setOnClickListener {
             button.isEnabled = false
 
-            var g = deleteSpinner.selectedItem as String
+            var entityName = deleteSpinner.selectedItem as String
 
-            delete(g)
+            delete(entityName)
         }
 
         deleteSpinner.adapter = ArrayAdapter(
@@ -51,18 +50,19 @@ class DeleteFragment : Fragment() {
     }
 
     private fun createAndPopulate(): Array<Any> {
-        var li = ArrayList<String>()
+        var spinnerDeleteList = ArrayList<String>()
 
-        for(name in databaseHelper.getGamesFromDB()) {
-            name.gameName?.toUpperCase()?.let{ li.add(it) }
+        for (name in databaseHelper.getGamesFromDB()) {
+            name.gameName?.toUpperCase()?.let { spinnerDeleteList.add(it) }
         }
 
-        return li.toArray()
+        return spinnerDeleteList.toArray()
     }
 
-    private fun delete(name: String){
+    private fun delete(name: String) {
 
-        var entity = databaseHelper.getGamesFromDB().stream().filter { e -> e.gameName!!.toUpperCase()!!.contentEquals(name) }.findFirst()
+        var entity = databaseHelper.getGamesFromDB().stream()
+            .filter { e -> e.gameName!!.toUpperCase()!!.contentEquals(name) }.findFirst()
 
         entity?.let { databaseHelper.deleteItemGame(it.get()) }
     }
