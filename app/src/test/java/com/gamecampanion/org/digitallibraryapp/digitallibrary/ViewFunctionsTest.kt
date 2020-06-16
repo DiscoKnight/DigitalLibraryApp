@@ -7,9 +7,11 @@ import org.junit.jupiter.api.Test
 internal class ViewFunctionsTest {
 
     val gameEntity: GameEntity =
-        GameEntity(1, "God Of War", "PS4", "2020-1-1", 5, "Action", true, "testUrl")
+        GameEntity(1, "God Of War", "PS4", "1-1-2020", 5, "Action", true, "testUrl")
 
     val viewFunctions: ViewFunctions = ViewFunctions()
+
+    var testDate :String = "2020-06-16"
 
     @Test
     fun getInfoText() {
@@ -25,8 +27,7 @@ internal class ViewFunctionsTest {
 
     @Test
     fun createDaysToReleasePrompt() {
-
-        assertThat(viewFunctions.createDaysToReleasePrompt(gameEntity, "")).isEqualTo(1)
+        assertThat(viewFunctions.createDaysToReleasePrompt(gameEntity, testDate)).isEqualTo(15)
     }
 
     @Test

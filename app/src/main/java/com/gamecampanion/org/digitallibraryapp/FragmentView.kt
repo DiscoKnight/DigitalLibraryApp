@@ -116,7 +116,11 @@ class FragmentView : Fragment() {
         viewFunction.getInfoText(counter, gameListFilter, textViewInfo)
         loadImageFromUrl(gameListFilter[counter])
 
-        //viewFunction.createAlertDialog(view.context, viewFunction.createDaysToReleasePrompt(gameListFilter[counter],LocalDate.now().toString()))
+        var st = LocalDate.now().toString()
+
+        //
+        //
+        // viewFunction.createAlertDialog(view.context, viewFunction.createDaysToReleasePrompt(gameListFilter[counter],LocalDate.now().toString()))
 
     }
 

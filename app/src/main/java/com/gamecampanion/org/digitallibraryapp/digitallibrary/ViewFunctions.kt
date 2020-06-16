@@ -20,7 +20,8 @@ class ViewFunctions {
 
     fun filterByPlatform(platform: String, gameList: List<GameEntity>): List<GameEntity> {
         return gameList.stream().filter { e -> e.platform.equals(platform) }.collect(
-            Collectors.toList())
+            Collectors.toList()
+        )
 
     }
 
@@ -31,21 +32,34 @@ class ViewFunctions {
     fun createDaysToReleasePrompt(gameEntity: GameEntity, localDate: String): Int {
         var getEntityList = gameEntity.releaseDate.toString().split(Pattern.compile("\\W"), 0)
 
-        return  Period.between(
+        return Period.between(
             LocalDate.parse(
                 String.format(
                     "%s-%s-%s",
-                    getEntityList.get(2),
-                    getEntityList.get(1),
-                    getEntityList.get(0)
-                ), DateTimeFormatter.ofPattern("yyyy-d-M")
+                    isDaysValid(Integer.valueOf(getEntityList.get(0))),
+                    isDaysValid(Integer.valueOf(getEntityList.get(1))),
+                    getEntityList.get(2)
+                ), DateTimeFormatter.ofPattern("M-d" +
+                        "-yyyy")
             ), LocalDate.parse(localDate)
         ).days
 
     }
 
+    private fun isDaysValid(days: Int): Int {
+        var str: String
+
+        if (days < 10) {
+            return Integer.valueOf("0" + days)
+        } else {
+            return days
+        }
+
+    }
+
     fun createAlertDialog(context: Context, daysBetween: Int) {
-        var dialog = AlertDialog.Builder(context,
+        var dialog = AlertDialog.Builder(
+            context,
             R.style.MyDialogTheme
         )
 

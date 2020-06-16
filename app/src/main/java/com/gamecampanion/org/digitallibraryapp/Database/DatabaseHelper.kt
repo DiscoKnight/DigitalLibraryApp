@@ -36,7 +36,7 @@ class DatabaseHelper(context: Context) {
             0,
             nameEditText,
             platform,
-            datePicker.month.toString() + "/" + datePicker.month + "/" + datePicker.year,
+            datePicker.month.toString() + "/" + datePicker.dayOfMonth + "/" + datePicker.year,
             ratingBar.numStars,
             genre,
             true,
