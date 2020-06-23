@@ -29,7 +29,7 @@ class ViewFunctions {
         return gameList.stream().filter { e -> e.rating!! >= rating }.collect(Collectors.toList())
     }
 
-    fun createDaysToReleasePrompt(gameEntity: GameEntity, localDate: String): Int {
+    fun calcuateTimeToRelease(gameEntity: GameEntity, localDate: String): Period {
         var getEntityList = gameEntity.releaseDate.toString().split(Pattern.compile("\\W"), 0)
 
         return Period.between(
@@ -42,7 +42,7 @@ class ViewFunctions {
                 ), DateTimeFormatter.ofPattern("M-d" +
                         "-yyyy")
             ), LocalDate.parse(localDate)
-        ).days
+        )
 
     }
 
@@ -57,14 +57,14 @@ class ViewFunctions {
 
     }
 
-    fun createAlertDialog(context: Context, daysBetween: Int) {
+    fun createAlertDialog(context: Context, period: Period) {
         var dialog = AlertDialog.Builder(
             context,
             R.style.MyDialogTheme
         )
 
         dialog.setTitle(R.string.dialogTitle)
-        dialog.setMessage(String.format("%s days to release", daysBetween))
+        dialog.setMessage(String.format("%s years to release, %s months to release, %s days to release", period.years, period.months, period.days))
         dialog.setPositiveButton(
             "OK",
             DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })

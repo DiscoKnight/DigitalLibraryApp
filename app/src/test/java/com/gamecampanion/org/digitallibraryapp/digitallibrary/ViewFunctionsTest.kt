@@ -3,6 +3,7 @@ package com.gamecampanion.org.digitallibraryapp.digitallibrary
 import com.gamecampanion.org.digitallibraryapp.Database.game.GameEntity
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import java.time.Period
 
 internal class ViewFunctionsTest {
 
@@ -11,26 +12,11 @@ internal class ViewFunctionsTest {
 
     val viewFunctions: ViewFunctions = ViewFunctions()
 
-    var testDate :String = "2020-06-16"
-
-    @Test
-    fun getInfoText() {
-    }
-
-    @Test
-    fun filterByPlatform() {
-    }
-
-    @Test
-    fun filterByRating() {
-    }
+    val PERIOD_EXPECTED = Period.of(0,5,15)
 
     @Test
     fun createDaysToReleasePrompt() {
-        assertThat(viewFunctions.createDaysToReleasePrompt(gameEntity, testDate)).isEqualTo(15)
+        assertThat(viewFunctions.calcuateTimeToRelease(gameEntity, "2020-06-16")).isEqualTo(PERIOD_EXPECTED)
     }
 
-    @Test
-    fun createAlertDialog() {
-    }
 }

@@ -16,6 +16,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import java.time.LocalDate
+import java.util.regex.Pattern
 import android.view.ViewGroup as ViewGroup1
 
 class FragmentView : Fragment() {
@@ -116,11 +117,12 @@ class FragmentView : Fragment() {
         viewFunction.getInfoText(counter, gameListFilter, textViewInfo)
         loadImageFromUrl(gameListFilter[counter])
 
-        var st = LocalDate.now().toString()
+        var b = Pattern.compile("0/0/\\d{4}").matcher(gameListFilter[counter].releaseDate).find()
 
-        //
-        //
-        // viewFunction.createAlertDialog(view.context, viewFunction.createDaysToReleasePrompt(gameListFilter[counter],LocalDate.now().toString()))
+        if( (!Pattern.compile("0/0/\\d{4}").matcher(gameListFilter[counter].releaseDate).find()) &&
+            viewFunction.calcuateTimeToRelease(gameListFilter[counter], LocalDate.now().toString()).isNegative){
+            viewFunction.createAlertDialog(view.context, viewFunction.calcuateTimeToRelease(gameListFilter[counter],LocalDate.now().toString()))
+        }
 
     }
 
