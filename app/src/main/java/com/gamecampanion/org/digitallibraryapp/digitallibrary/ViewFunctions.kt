@@ -57,18 +57,48 @@ class ViewFunctions {
 
     }
 
-    fun createAlertDialog(context: Context, period: Period) {
+    fun createAlertDialogPreOwned(context: Context, period: Period, game: GameEntity) {
         var dialog = AlertDialog.Builder(
             context,
             R.style.MyDialogTheme
         )
 
         dialog.setTitle(R.string.dialogTitle)
-        dialog.setMessage(String.format("%s years to release, %s months to release, %s days to release", period.years, period.months, period.days))
+        dialog.setMessage(String.format("%s years to release, %s months to release, %s days to release\n Title: %s \n Platform: %s \n Rating: %s ",
+            period.years,
+            period.months.toString().substring(1),
+            period.days.toString().substring(1),
+            game.gameName,
+            game.platform,
+            game.rating)
+        )
+
         dialog.setPositiveButton(
             "OK",
             DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
 
         dialog.show()
     }
+
+    fun createAlertDialog(game: GameEntity, context: Context){
+        var dialog = AlertDialog.Builder(
+            context,
+            R.style.MyDialogTheme
+        )
+
+        dialog.setTitle(R.string.dialogTitleGame)
+        dialog.setMessage(String.format("Title: %s \n Platform: %s \n Rating: %s ",
+            game.gameName,
+            game.platform,
+            game.rating)
+        )
+
+        dialog.setPositiveButton(
+            "OK",
+            DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+
+        dialog.show()
+    }
+
+
 }

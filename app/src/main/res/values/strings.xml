@@ -13,6 +13,7 @@
     <string name="app_view">Digital Library - View</string>
     <string name="deleteButtonText">Delete</string>
     <string name="dialogTitle">Time to release</string>
+    <string name="dialogTitleGame">Game Info</string>
 
     <string-array name="typeCollections">
         <item>Game</item>

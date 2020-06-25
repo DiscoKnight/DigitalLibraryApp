@@ -21,7 +21,6 @@ import android.view.ViewGroup as ViewGroup1
 
 class FragmentView : Fragment() {
 
-    lateinit var textViewInfo: TextView
     var gameList: List<GameEntity> = ArrayList()
     lateinit var gameListFilter: List<GameEntity>// = ArrayList()
     lateinit var dbHelper: DatabaseHelper
@@ -31,8 +30,9 @@ class FragmentView : Fragment() {
     lateinit var imageSwitcher: ImageSwitcher
     lateinit var typeFilterSpinner: Spinner
     lateinit var typeFilterResultSpinner: Spinner
-    val viewFunction =
-        ViewFunctions()
+    lateinit var collectionTypeFilter: Spinner
+
+    val viewFunction = ViewFunctions()
 
     val images = intArrayOf(
         R.drawable.gow1,
@@ -48,20 +48,17 @@ class FragmentView : Fragment() {
 
         imageSwitcher = view.findViewById(R.id.imageswitcher)
 
-        textViewInfo = view.findViewById(R.id.infoView)
-
         typeFilterSpinner = view.findViewById(R.id.typeFilter)
 
         typeFilterResultSpinner = view.findViewById(R.id.typeFilterResult)
+
+        collectionTypeFilter = view.findViewById(R.id.collectionTypeFilter)
+
         typeFilterResultSpinner.isEnabled = false
 
         dbHelper = DatabaseHelper(view.context)
 
         gameList = dbHelper.getGamesFromDB()
-
-        viewFunction.getInfoText(counter, gameList, textViewInfo)
-
-        //loadImageFromUrl(gameList[counter])
 
         imageSwitcher.setFactory {
             imgView = ImageView(this.context)
@@ -110,18 +107,56 @@ class FragmentView : Fragment() {
 
         }
 
+        collectionTypeFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                if (view != null) {
+                    when (position) {
+                        0 -> setUpPlatform()//Game
+                        1 -> setUpRating()//Music
+                        2 -> "smurf"//Movie
+                    }
+                }
+            }
+
+        }
+
         return view
     }
 
     private fun buttonClick(view: View) {
-        viewFunction.getInfoText(counter, gameListFilter, textViewInfo)
-        loadImageFromUrl(gameListFilter[counter])
+        // viewFunction.getInfoText(counter, gameListFilter, textViewInfo)
+        //loadImageFromUrl(gameListFilter[counter])
 
-        var b = Pattern.compile("0/0/\\d{4}").matcher(gameListFilter[counter].releaseDate).find()
+        if(gameListFilter.isNotEmpty()) {
+            loadImageFromUrl(gameListFilter[counter])
 
-        if( (!Pattern.compile("0/0/\\d{4}").matcher(gameListFilter[counter].releaseDate).find()) &&
-            viewFunction.calcuateTimeToRelease(gameListFilter[counter], LocalDate.now().toString()).isNegative){
-            viewFunction.createAlertDialog(view.context, viewFunction.calcuateTimeToRelease(gameListFilter[counter],LocalDate.now().toString()))
+            if ((!Pattern.compile("0/0/\\d{4}").matcher(gameListFilter[counter].releaseDate)
+                    .find()) &&
+                viewFunction.calcuateTimeToRelease(
+                    gameListFilter[counter],
+                    LocalDate.now().toString()
+                ).isNegative
+            ) {
+                viewFunction.createAlertDialogPreOwned(
+                    view.context,
+                    viewFunction.calcuateTimeToRelease(
+                        gameListFilter[counter],
+                        LocalDate.now().toString()
+                    ),
+                    gameListFilter[counter]
+                )
+            } else {
+                viewFunction.createAlertDialog(gameListFilter[counter], view.context)
+            }
         }
 
     }
