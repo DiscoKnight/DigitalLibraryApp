@@ -1,20 +1,13 @@
 package com.gamecampanion.org.digitallibraryapp
 
-import android.content.res.Resources
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
-import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import com.gamecampanion.org.digitallibraryapp.Database.DatabaseHelper
 import com.gamecampanion.org.digitallibraryapp.Database.game.GameEntity
 import com.gamecampanion.org.digitallibraryapp.digitallibrary.ViewFunctions
-import com.squareup.picasso.Picasso
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
 import java.time.LocalDate
 import java.util.regex.Pattern
 import android.view.ViewGroup as ViewGroup1
@@ -22,18 +15,19 @@ import android.view.ViewGroup as ViewGroup1
 class FragmentView : Fragment() {
 
     var gameList: List<GameEntity> = ArrayList()
-    lateinit var gameListFilter: List<GameEntity>// = ArrayList()
-    lateinit var dbHelper: DatabaseHelper
-    lateinit var bitmapDrawable: BitmapDrawable
-    lateinit var imgView: ImageView
+    var gameListFilter: List<GameEntity> = ArrayList()
     var counter: Int = 0
+
+    lateinit var dbHelper: DatabaseHelper
+    lateinit var imgView: ImageView
     lateinit var imageSwitcher: ImageSwitcher
     lateinit var typeFilterSpinner: Spinner
     lateinit var typeFilterResultSpinner: Spinner
     lateinit var collectionTypeFilter: Spinner
 
-    val viewFunction = ViewFunctions()
+    private var type: CollectionTypes = CollectionTypes.GAME
 
+    val viewFunction = ViewFunctions()
     val images = intArrayOf(
         R.drawable.gow1,
         R.drawable.hzd1
@@ -53,8 +47,6 @@ class FragmentView : Fragment() {
         typeFilterResultSpinner = view.findViewById(R.id.typeFilterResult)
 
         collectionTypeFilter = view.findViewById(R.id.collectionTypeFilter)
-
-        typeFilterResultSpinner.isEnabled = false
 
         dbHelper = DatabaseHelper(view.context)
 
@@ -85,11 +77,11 @@ class FragmentView : Fragment() {
 
         }
 
-        typeFilterSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-
+        collectionTypeFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
-
+                TODO("Not yet implemented")
             }
+
 
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -99,17 +91,17 @@ class FragmentView : Fragment() {
             ) {
                 if (view != null) {
                     when (position) {
-                        0 -> setUpPlatform()
-                        1 -> setUpRating()
+                        0 -> setUpSpinner(R.array.gamePlatform)
+                        1 -> setUpSpinner(R.array.musicGenre)
+                        2 -> setUpSpinner(R.array.movieGenre)
                     }
                 }
             }
-
         }
 
-        collectionTypeFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        typeFilterResultSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
-
+                TODO("Not yet implemented")
             }
 
             override fun onItemSelected(
@@ -118,12 +110,16 @@ class FragmentView : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                if (view != null) {
-                    when (position) {
-                        0 -> setUpPlatform()//Game
-                        1 -> setUpRating()//Music
-                        2 -> "smurf"//Movie
+                if (view != null &&
+                    !gameListFilter.isNullOrEmpty()) {
+
+                    when(type){
+                        CollectionTypes.GAME -> viewFunction.filterByRating(Integer.valueOf(typeFilterResultSpinner.selectedItem as String)
+                            , gameListFilter)
+                        CollectionTypes.MOVIE -> ""
+                        CollectionTypes.MUSIC -> ""
                     }
+
                 }
             }
 
@@ -132,12 +128,42 @@ class FragmentView : Fragment() {
         return view
     }
 
-    private fun buttonClick(view: View) {
-        // viewFunction.getInfoText(counter, gameListFilter, textViewInfo)
-        //loadImageFromUrl(gameListFilter[counter])
+    private fun setUpSpinner(genreArray: Int) {
+        typeFilterSpinner.adapter = ArrayAdapter(
+            this.requireContext(),
+            android.R.layout.simple_spinner_item,
+            resources.getStringArray(genreArray)
+        )
 
-        if(gameListFilter.isNotEmpty()) {
-            loadImageFromUrl(gameListFilter[counter])
+        typeFilterSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    if (view != null) {
+                        var filterResult = typeFilterSpinner.selectedItem as String
+
+                        gameListFilter = viewFunction.filterByPlatform(filterResult, gameList)
+
+                    }
+                }
+
+            }
+
+    }
+
+    private fun buttonClick(view: View) {
+
+        if (gameListFilter.isNotEmpty()) {
+            viewFunction.loadGameImageFromUrl(gameListFilter[counter], imageSwitcher)
 
             if ((!Pattern.compile("0/0/\\d{4}").matcher(gameListFilter[counter].releaseDate)
                     .find()) &&
@@ -161,91 +187,8 @@ class FragmentView : Fragment() {
 
     }
 
-    private fun setUpPlatform() {
-        typeFilterResultSpinner.isEnabled = true
-
-        typeFilterResultSpinner.adapter = ArrayAdapter(
-            this.requireContext(),
-            android.R.layout.simple_spinner_item,
-            resources.getStringArray(R.array.gamePlatform)
-        )
-
-        typeFilterResultSpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-
-                }
-
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    if (view != null) {
-                        var filterResult = typeFilterResultSpinner.selectedItem as String
-
-                        gameListFilter = viewFunction.filterByPlatform(filterResult,gameList)
-
-                    }
-                }
-
-            }
-
-
-    }
-
-    private fun setUpRating() {
-        typeFilterResultSpinner.adapter = ArrayAdapter(
-            this.requireContext(),
-            android.R.layout.simple_spinner_item,
-            resources.getStringArray(R.array.ratingTypes)
-        )
-
-        typeFilterResultSpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-
-                }
-
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    if (view != null) {
-                        var filterResult = typeFilterResultSpinner.selectedItem as String
-
-                        //viewFunction.filterByRating(Character.getNumericValue(filterResult[filterResult.length - 1].toInt()))
-
-                        gameListFilter = viewFunction.filterByRating(Character.getNumericValue(filterResult[filterResult.length - 1].toInt()), gameList)
-
-                    }
-                }
-
-            }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-    }
-
-    private fun loadImageFromUrl(gameEntity: GameEntity) {
-
-        runBlocking {
-            var r = GlobalScope.async {
-                bitmapDrawable =
-                    Picasso.get().load(gameEntity.url).get().toDrawable(Resources.getSystem())
-            }
-
-            r.await()
-        }
-
-        imageSwitcher.setImageDrawable(bitmapDrawable.current)
 
     }
 

@@ -9,7 +9,7 @@
     tools:context=".ViewActivity"
     android:orientation="horizontal">
 
-    <include layout="@layout/toolbarbuttom" />
+    <include layout="@layout/toolbarbuttom"/>
 
     <Spinner
         android:id="@+id/typeFilter"
@@ -24,7 +24,7 @@
         android:id="@+id/typeFilterResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:entries="@array/gamePlatform"
+        android:entries="@array/ratingTypes"
         android:layout_margin="25dp"
         app:layout_constraintRight_toLeftOf="@+id/guidelineVerticalTwo"
         app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontalOne"/>
@@ -78,18 +78,6 @@
         app:layout_constraintTop_toBottomOf="@+id/guidelineHorizontalOne"
         app:layout_constraintBottom_toTopOf="@id/guidelineHorizontalTwo"
         />
-
-    <TextView
-        android:id="@+id/infoView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:textSize="40dp"
-        android:layout_margin="40dp"
-        android:textColor="@color/textColour"
-        app:layout_constraintLeft_toLeftOf="@+id/imageswitcher"
-        app:layout_constraintTop_toTopOf="@+id/imageswitcher"
-        android:translationZ="180dp"
-        android:textAllCaps="true"/>
 
     <ImageButton
         android:id="@+id/imageButtonRight"

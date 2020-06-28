@@ -3,9 +3,19 @@ package com.gamecampanion.org.digitallibraryapp.digitallibrary
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.res.Resources
+import android.graphics.drawable.BitmapDrawable
+import android.widget.ImageSwitcher
 import android.widget.TextView
+import androidx.core.graphics.drawable.toDrawable
 import com.gamecampanion.org.digitallibraryapp.Database.game.GameEntity
+import com.gamecampanion.org.digitallibraryapp.Database.movie.MovieEntity
+import com.gamecampanion.org.digitallibraryapp.Database.music.MusicEntity
 import com.gamecampanion.org.digitallibraryapp.R
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
@@ -14,9 +24,7 @@ import java.util.stream.Collectors
 
 class ViewFunctions {
 
-    fun getInfoText(counter: Int, gameList: List<GameEntity>, textViewInfo: TextView) {
-        textViewInfo.setText(gameList[counter].gameName + "\n" + gameList[counter].platform + "\n" + gameList[counter].genre)
-    }
+    lateinit var bitmapDrawable: BitmapDrawable
 
     fun filterByPlatform(platform: String, gameList: List<GameEntity>): List<GameEntity> {
         return gameList.stream().filter { e -> e.platform.equals(platform) }.collect(
@@ -26,7 +34,7 @@ class ViewFunctions {
     }
 
     fun filterByRating(rating: Int, gameList: List<GameEntity>): List<GameEntity> {
-        return gameList.stream().filter { e -> e.rating!! >= rating }.collect(Collectors.toList())
+        return gameList.stream().filter { e -> e.rating!! <= rating }.collect(Collectors.toList())
     }
 
     fun calcuateTimeToRelease(gameEntity: GameEntity, localDate: String): Period {
@@ -99,6 +107,53 @@ class ViewFunctions {
 
         dialog.show()
     }
+
+    //
+
+    fun loadGameImageFromUrl(gameEntity: GameEntity, imageSwitcher : ImageSwitcher) {
+
+        runBlocking {
+            var r = GlobalScope.async {
+                bitmapDrawable =
+                    Picasso.get().load(gameEntity.url).get().toDrawable(Resources.getSystem())
+            }
+
+            r.await()
+        }
+
+        imageSwitcher.setImageDrawable(bitmapDrawable.current)
+
+    }
+
+//    private fun loadMusicImageFromUrl(musicEntity: MusicEntity) {
+//
+//        runBlocking {
+//            var r = GlobalScope.async {
+//                bitmapDrawable =
+//                    Picasso.get().load(musicEntity.album).get().toDrawable(Resources.getSystem())
+//            }
+//
+//            r.await()
+//        }
+//
+//        imageSwitcher.setImageDrawable(bitmapDrawable.current)
+//
+//    }
+//
+//    private fun loadMovieImageFromUrl(movieEntity: MovieEntity) {
+//
+//        runBlocking {
+//            var r = GlobalScope.async {
+//                bitmapDrawable =
+//                    Picasso.get().load(movieEntity.artist).get().toDrawable(Resources.getSystem())
+//            }
+//
+//            r.await()
+//        }
+//
+//        imageSwitcher.setImageDrawable(bitmapDrawable.current)
+//
+//    }
 
 
 }

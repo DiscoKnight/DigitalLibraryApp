@@ -3,9 +3,6 @@ package com.gamecampanion.org.digitallibraryapp.Database.game
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.gamecampanion.org.digitallibraryapp.digitallibrary.genres.GameGenreEnum
-import java.time.LocalDate
-import java.util.*
 
 @Entity
 data class GameEntity(@PrimaryKey(autoGenerate = true) val id: Int,
