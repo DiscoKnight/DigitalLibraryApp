@@ -121,7 +121,7 @@ class AddFragment : Fragment() {
                     url.text.toString()
                 )
             )
-            1 -> databaseHelper.addItemMusic()
+            1 -> "databaseHelper.addItemMusic()"
             //2 -> databaseHelper.addItemMovie()
         }
     }

@@ -17,6 +17,7 @@ class FragmentView : Fragment() {
     var gameList: List<GameEntity> = ArrayList()
     var gameListFilter: List<GameEntity> = ArrayList()
     var counter: Int = 0
+    var isEnlarged = true
 
     lateinit var dbHelper: DatabaseHelper
     lateinit var imgView: ImageView
@@ -99,31 +100,37 @@ class FragmentView : Fragment() {
             }
         }
 
-        typeFilterResultSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                if (view != null &&
-                    !gameListFilter.isNullOrEmpty()) {
-
-                    when(type){
-                        CollectionTypes.GAME -> viewFunction.filterByRating(Integer.valueOf(typeFilterResultSpinner.selectedItem as String)
-                            , gameListFilter)
-                        CollectionTypes.MOVIE -> ""
-                        CollectionTypes.MUSIC -> ""
-                    }
-
+        typeFilterResultSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    TODO("Not yet implemented")
                 }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    if (view != null &&
+                        !gameListFilter.isNullOrEmpty()
+                    ) {
+
+                        when (type) {
+                            CollectionTypes.GAME -> viewFunction.filterByRating(
+                                Integer.valueOf(typeFilterResultSpinner.selectedItem as String)
+                                , gameListFilter
+                            )
+                            CollectionTypes.MOVIE -> ""
+                            CollectionTypes.MUSIC -> ""
+                        }
+
+                    }
+                }
+
             }
 
-        }
+        imageSwitcher.setOnClickListener { onClick(view) }
 
         return view
     }
@@ -189,6 +196,19 @@ class FragmentView : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+    }
+
+    fun onClick(view: View) {
+        println("smurf1")
+
+        if(isEnlarged){
+            imageSwitcher.animate().scaleX(1.75f).scaleY(1.75f).start()
+            isEnlarged = false
+        }else{
+            imageSwitcher.animate().scaleX(0.75f).scaleY(0.75f).start()
+            isEnlarged = true
+        }
 
     }
 

@@ -45,8 +45,6 @@ class DatabaseHelper(context: Context) {
 
     }
 
-    fun addItemMusic() {}
-
     fun deleteItemGame(game: GameEntity) {
         runBlocking {
             GlobalScope.launch {
@@ -91,10 +89,10 @@ class DatabaseHelper(context: Context) {
         return runBlocking {
             GlobalScope.launch() {
                 CoroutinesRoom.execute(
-                    createMusicDatabase(context),
+                    createMusicDatabase(),
                     true,
                     CollectionCallableMusic(
-                        createMusicDatabase(context),
+                        createMusicDatabase(),
                         entity
                     )
                 )
@@ -106,10 +104,10 @@ class DatabaseHelper(context: Context) {
         return runBlocking {
             GlobalScope.launch() {
                 CoroutinesRoom.execute(
-                    createMovieDatabase(context),
+                    createMovieDatabase(),
                     true,
                     CollectionCallableMovie(
-                        createMovieDatabase(context),
+                        createMovieDatabase(),
                         entity
                     )
                 )
@@ -117,14 +115,14 @@ class DatabaseHelper(context: Context) {
         }
     }
 
-    private fun createMusicDatabase(context: Context): MusicDB {
+    ////////////////////////////////////////////////////////////////////
+
+    private fun createMusicDatabase(): MusicDB {
         return Room.databaseBuilder(
             context,
             MusicDB::class.java, "musicDB"
         ).build()
     }
-
-    ///////////////////////////////////////////////////////////////////
 
     fun createGameDatabase(): GameDB {
         return Room.databaseBuilder(
@@ -134,18 +132,16 @@ class DatabaseHelper(context: Context) {
         ).addMigrations(MIGRATION_1_2).build()
     }
 
-    private val MIGRATION_1_2 = object : Migration(1, 2) {
-        override fun migrate(database: SupportSQLiteDatabase) {
-            database.execSQL("ALTER TABLE GameEntity ADD COLUMN urlString TEXT")
-        }
-    }
-
-    /////////////////////////////////////////////////////////////
-
-    private fun createMovieDatabase(context: Context): MovieDB {
+    private fun createMovieDatabase(): MovieDB {
         return Room.databaseBuilder(
             context,
             MovieDB::class.java, "movieDB"
         ).build()
+    }
+
+    private val MIGRATION_1_2 = object : Migration(1, 2) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("ALTER TABLE GameEntity ADD COLUMN urlString TEXT")
+        }
     }
 }

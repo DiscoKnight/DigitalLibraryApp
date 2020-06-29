@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/backgroudgradient"
-    tools:context=".ViewActivity"
-    android:orientation="horizontal">
+    tools:context=".ViewActivity">
 
     <include layout="@layout/toolbarbuttom"/>
 
@@ -95,10 +94,12 @@
         android:layout_height="400dp"
         android:inAnimation="@android:anim/slide_in_left"
         android:outAnimation="@android:anim/slide_out_right"
-        app:layout_constraintRight_toLeftOf="@+id/guidelineVerticalTwo"
         app:layout_constraintTop_toBottomOf="@+id/guidelineHorizontalOne"
         app:layout_constraintBottom_toTopOf="@id/guidelineHorizontalTwo"
+        app:layout_constraintEnd_toEndOf="@+id/guidelineVerticalTwo"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVerticalOne"
         app:layout_constraintLeft_toRightOf="@+id/guidelineVerticalOne"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineVerticalTwo"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
