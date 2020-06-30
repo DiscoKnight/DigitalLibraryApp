@@ -3,47 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/authFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/authFragment"
         android:name="com.gamecampanion.org.digitallibraryapp.LogOnFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_logon">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/ThirdFragment"
+            app:destination="@id/mainFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
+        android:id="@+id/addFragment"
         android:name="com.gamecampanion.org.digitallibraryapp.AddFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_add">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/ThirdFragment"
+            app:destination="@id/mainFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
-        android:id="@+id/ThirdFragment"
+        android:id="@+id/mainFragment"
         android:name="com.gamecampanion.org.digitallibraryapp.MainFragment"
         android:label="Third Fragment"
         android:layout="@layout/fragmentmain">
 
         <action
             android:id="@+id/action_ThirdFrgment_to_SecondFragment"
-            app:destination="@id/SecondFragment"
+            app:destination="@id/addFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right" />
 
         <action
             android:id="@+id/action_fourthFragment_to_ThirdFragment"
-            app:destination="@id/FourthFragment"
+            app:destination="@id/viewFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right" />
 
@@ -53,10 +53,16 @@
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"/>
 
+        <action
+            android:id="@+id/action_mainfragment_to_editfragment"
+            app:destination="@+id/editFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"/>
+
     </fragment>
 
     <fragment
-        android:id="@+id/FourthFragment"
+        android:id="@+id/viewFragment"
         android:name="com.gamecampanion.org.digitallibraryapp.FragmentView"
         android:label="Fourth Fragment"
         android:layout="@layout/viewcollectionlayout">
@@ -68,6 +74,14 @@
         android:name="com.gamecampanion.org.digitallibraryapp.DeleteFragment"
         android:label="Delete Fragment"
         android:layout="@layout/deletefragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.gamecampanion.org.digitallibraryapp.EditFragment"
+        android:label="Edit Fragment"
+        android:layout="@layout/fragment_edit">
 
     </fragment>
 

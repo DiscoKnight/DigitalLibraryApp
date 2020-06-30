@@ -200,7 +200,6 @@ class FragmentView : Fragment() {
     }
 
     fun onClick(view: View) {
-        println("smurf1")
 
         if(isEnlarged){
             imageSwitcher.animate().scaleX(1.75f).scaleY(1.75f).start()

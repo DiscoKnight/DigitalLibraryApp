@@ -22,16 +22,20 @@ class MainFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.addButton).setOnClickListener {
+        view.findViewById<Button>(addButton).setOnClickListener {
             findNavController().navigate(action_ThirdFrgment_to_SecondFragment)
         }
 
-        view.findViewById<Button>(R.id.viewButton).setOnClickListener {
+        view.findViewById<Button>(viewButton).setOnClickListener {
             findNavController().navigate(action_fourthFragment_to_ThirdFragment)
         }
 
-        view.findViewById<Button>(R.id.deleteButton).setOnClickListener {
+        view.findViewById<Button>(deleteButton).setOnClickListener {
             findNavController().navigate(action_mainFragment_to_DeleteFragment)
+        }
+
+        view.findViewById<Button>(editButton).setOnClickListener {
+            findNavController().navigate(action_mainfragment_to_editfragment)
         }
 
     }

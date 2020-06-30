@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroudgradient">
+
+    <Spinner
+        android:id="@+id/collectionSelectionEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/typeCollections"/>
+
+    <include layout="@layout/toolbarbuttom"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
