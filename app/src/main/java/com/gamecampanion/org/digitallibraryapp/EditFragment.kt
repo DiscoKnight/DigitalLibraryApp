@@ -14,6 +14,9 @@ class EditFragment : Fragment() {
     lateinit var collectionTypeSpinner: Spinner
     lateinit var collectionSelectionResultSpinner: Spinner
     lateinit var nameTextView: EditText
+    lateinit var urlTextView: EditText
+    lateinit var dateReleasePicker: DatePicker
+    lateinit var acceptEditButton: Button
 
     lateinit var databaseHelper: DatabaseHelper
 
@@ -26,6 +29,9 @@ class EditFragment : Fragment() {
         collectionTypeSpinner = view.findViewById(R.id.collectionSelectionSpinner)
         collectionSelectionResultSpinner = view.findViewById(R.id.collectionSelectionResultSpinner)
         nameTextView = view.findViewById(R.id.nameTextViewEdit)
+        urlTextView = view.findViewById(R.id.urlTextViewEdit)
+        dateReleasePicker = view.findViewById(R.id.releaseDatePicker)
+        acceptEditButton = view.findViewById(R.id.editAcceptButton)
 
         databaseHelper = DatabaseHelper(view.context)
 
@@ -51,6 +57,8 @@ class EditFragment : Fragment() {
             }
 
         }
+
+        acceptEditButton.setOnClickListener { onClick(view) }
 
         return view
     }
@@ -85,9 +93,34 @@ class EditFragment : Fragment() {
                 var entity = databaseHelper.getGamesFromDB().get(position)
 
                 nameTextView.setText(entity.gameName)
+                urlTextView.setText(entity.url)
+
+                var releasedate = entity.releaseDate?.split("/")
+
+                var realeaseDateArray = releasedate?.stream()?.mapToInt { e-> foo(e)  }?.toArray()
+
+                var day = realeaseDateArray?.get(1)
+                var month = realeaseDateArray?.get(0)
+                var year = realeaseDateArray?.get(2)
+
+                if (month != null
+                    && year != null
+                    && day != null) {
+                    dateReleasePicker.updateDate(year, month, day)
+                }
+
 
             }
         }
+
+    }
+
+    private fun foo(str: String): Int{
+        return Integer.valueOf(str)
+    }
+
+    private fun onClick(view: View){
+        println("")
 
     }
 
