@@ -1,9 +1,6 @@
 package com.gamecampanion.org.digitallibraryapp.digitallibrary.game
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.gamecampanion.org.digitallibraryapp.Database.game.GameEntity
 
 @Dao
@@ -17,4 +14,7 @@ interface GameDao {
 
     @Delete
     fun deleteGame(game: GameEntity)
+
+    @Update
+    fun updateGame(game: GameEntity)
 }

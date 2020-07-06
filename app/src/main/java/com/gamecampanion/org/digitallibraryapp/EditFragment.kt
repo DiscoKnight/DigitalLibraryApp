@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.gamecampanion.org.digitallibraryapp.Database.DatabaseHelper
+import com.gamecampanion.org.digitallibraryapp.Database.game.GameEntity
 import java.util.stream.Collectors
 
 class EditFragment : Fragment() {
@@ -17,6 +18,7 @@ class EditFragment : Fragment() {
     lateinit var urlTextView: EditText
     lateinit var dateReleasePicker: DatePicker
     lateinit var acceptEditButton: Button
+    lateinit var entity: GameEntity
 
     lateinit var databaseHelper: DatabaseHelper
 
@@ -90,14 +92,14 @@ class EditFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                var entity = databaseHelper.getGamesFromDB().get(position)
+                entity = databaseHelper.getGamesFromDB().get(position)
 
                 nameTextView.setText(entity.gameName)
                 urlTextView.setText(entity.url)
 
                 var releasedate = entity.releaseDate?.split("/")
 
-                var realeaseDateArray = releasedate?.stream()?.mapToInt { e-> foo(e)  }?.toArray()
+                var realeaseDateArray = releasedate?.stream()?.mapToInt { e-> convertToInt(e)  }?.toArray()
 
                 var day = realeaseDateArray?.get(1)
                 var month = realeaseDateArray?.get(0)
@@ -115,12 +117,16 @@ class EditFragment : Fragment() {
 
     }
 
-    private fun foo(str: String): Int{
+    private fun convertToInt(str: String): Int{
         return Integer.valueOf(str)
     }
 
     private fun onClick(view: View){
-        println("")
+        entity.gameName = nameTextView.text.toString()
+        entity.url = urlTextView.text.toString()
+        entity.releaseDate = Integer.toString(dateReleasePicker.month) + "/" + dateReleasePicker.dayOfMonth + "/" + dateReleasePicker.year
+
+        databaseHelper.editItemGame(entity)
 
     }
 

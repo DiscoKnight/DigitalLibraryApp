@@ -53,6 +53,14 @@ class DatabaseHelper(context: Context) {
         }
     }
 
+    fun editItemGame(game: GameEntity) {
+        runBlocking {
+            GlobalScope.launch {
+                createGameDatabase().gameDao().updateGame(game)
+            }
+        }
+    }
+
     fun getGamesFromDB(): List<GameEntity> {
 
         runBlocking {
