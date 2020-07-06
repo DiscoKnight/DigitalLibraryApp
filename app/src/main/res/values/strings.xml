@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">Digital Library</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Log-on</string>
+    <string name="addString">Add</string>
+    <string name="addMenuItem">Account</string>
+    <string name="viewMenuItem">View</string>
+    <string name="hello_first_fragment">Log on</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="app_view">Digital Library - View</string>
+    <string name="deleteButtonText">Delete</string>
+    <string name="dialogTitle">Time to release</string>
+    <string name="dialogTitleGame">Game Info</string>
+
+    <string-array name="typeCollections">
+        <item>Game</item>
+        <item>Music</item>
+        <item>Movie</item>
+    </string-array>
+
+    <string-array name="gamePlatform">
+        <item>PS1</item>
+        <item>PS2</item>
+        <item>PS3</item>
+        <item>PS4</item>
+        <item>PS5</item>
+        <item>PSVR</item>
+        <item>PSVita</item>
+        <item>PSP</item>
+        <item>XBox</item>
+        <item>XBox360</item>
+        <item>XBoxSeriesX</item>
+        <item>Switch</item>
+    </string-array>
+
+    <string-array name="gameGenres">
+        <item>Action/Adventure</item>
+        <item>RPG</item>
+        <item>JRPG</item>
+        <item>Fighting</item>
+        <item>Racing</item>
+        <item>Platformer</item>
+    </string-array>
+
+    <string-array name="musicGenre">
+        <item>Pop</item>
+        <item>Rock</item>
+        <item>Indie</item>
+        <item>Classical</item>
+        <item>Dance</item>
+        <item>Hip-hop</item>
+        <item>OST</item>
+    </string-array>
+
+    <string-array name="movieGenre">
+        <item>Comedy</item>
+        <item>Action</item>
+        <item>Fantasy/Sci-fi</item>
+        <item>Childrens</item>
+    </string-array>
+
+    <string-array name="filterTypes">
+        <item>Platform</item>
+        <item>Rating</item>
+    </string-array>
+
+    <string-array name="ratingTypes">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+</resources>
