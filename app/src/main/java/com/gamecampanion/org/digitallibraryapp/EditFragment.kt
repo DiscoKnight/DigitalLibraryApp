@@ -124,7 +124,7 @@ class EditFragment : Fragment() {
     private fun onClick(view: View){
         entity.gameName = nameTextView.text.toString()
         entity.url = urlTextView.text.toString()
-        entity.releaseDate = Integer.toString(dateReleasePicker.month) + "/" + dateReleasePicker.dayOfMonth + "/" + dateReleasePicker.year
+        entity.releaseDate = dateReleasePicker.month.toString() + "/" + dateReleasePicker.dayOfMonth + "/" + dateReleasePicker.year
 
         databaseHelper.editItemGame(entity)
 
