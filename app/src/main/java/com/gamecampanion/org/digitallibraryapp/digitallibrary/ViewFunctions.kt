@@ -6,11 +6,8 @@ import android.content.DialogInterface
 import android.content.res.Resources
 import android.graphics.drawable.BitmapDrawable
 import android.widget.ImageSwitcher
-import android.widget.TextView
 import androidx.core.graphics.drawable.toDrawable
 import com.gamecampanion.org.digitallibraryapp.Database.game.GameEntity
-import com.gamecampanion.org.digitallibraryapp.Database.movie.MovieEntity
-import com.gamecampanion.org.digitallibraryapp.Database.music.MusicEntity
 import com.gamecampanion.org.digitallibraryapp.R
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.GlobalScope

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "976417513058",
+    "firebase_url": "https://projectlionheart-kotlin.firebaseio.com",
+    "project_id": "projectlionheart-kotlin",
+    "storage_bucket": "projectlionheart-kotlin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976417513058:android:542e288da2fbe65470bb3b",
+        "android_client_info": {
+          "package_name": "com.gamecampanion.org.digitallibraryapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "976417513058-oll8aera216bqgdu1ctc7i3th0u3k9r5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgnNiy4wqIlBdTlECZ6I8kbS9jpvc_398"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "976417513058-oll8aera216bqgdu1ctc7i3th0u3k9r5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

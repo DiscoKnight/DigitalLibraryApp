@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.gamecampanion.org.digitallibraryapp.Database.movie.MovieEntity
-import com.gamecampanion.org.digitallibraryapp.Database.music.MusicEntity
 
 @Dao
 interface MovieDao {
