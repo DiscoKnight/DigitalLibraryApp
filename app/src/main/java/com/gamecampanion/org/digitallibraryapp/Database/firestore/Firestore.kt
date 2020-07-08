@@ -1,10 +1,10 @@
 package com.gamecampanion.org.digitallibraryapp.Database.firestore
 
-import android.view.View
-
 interface Firestore {
 
-    fun getFromDatabase(view: View)
+    fun getFromDatabase(collectionPath: String)
 
-    fun writeToDatabase()
+    fun writeToDatabase(model: DigitalLibraryModel, collectionPath: String)
+
+    fun getCloudCollectionList(): List<DigitalLibraryModel>
 }

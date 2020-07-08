@@ -6,16 +6,21 @@ import android.view.View
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.gamecampanion.org.digitallibraryapp.Database.DatabaseHelper
+import com.gamecampanion.org.digitallibraryapp.Database.firestore.DigitalLibraryModel
+import com.gamecampanion.org.digitallibraryapp.Database.firestore.Firestore
+import com.gamecampanion.org.digitallibraryapp.Database.firestore.FirestoreClientImpl
 import com.gamecampanion.org.digitallibraryapp.Database.game.GameEntity
 import com.gamecampanion.org.digitallibraryapp.digitallibrary.ViewFunctions
 import java.time.LocalDate
+import java.util.*
 import java.util.regex.Pattern
+import kotlin.collections.ArrayList
 import android.view.ViewGroup as ViewGroup1
 
 class FragmentView : Fragment() {
 
-    var gameList: List<GameEntity> = ArrayList()
-    var gameListFilter: List<GameEntity> = ArrayList()
+    var gameListFilter: List<DigitalLibraryModel> = ArrayList()
+    var gamesFromFireStore: List<DigitalLibraryModel> = ArrayList()
     var counter: Int = 0
     var isEnlarged = true
 
@@ -25,6 +30,7 @@ class FragmentView : Fragment() {
     lateinit var typeFilterSpinner: Spinner
     lateinit var typeFilterResultSpinner: Spinner
     lateinit var collectionTypeFilter: Spinner
+    lateinit var firestore : Firestore
 
     private var type: CollectionTypes = CollectionTypes.GAME
 
@@ -42,16 +48,17 @@ class FragmentView : Fragment() {
         var view = inflater.inflate(R.layout.viewcollectionlayout, container, false)
 
         imageSwitcher = view.findViewById(R.id.imageswitcher)
-
         typeFilterSpinner = view.findViewById(R.id.typeFilter)
-
         typeFilterResultSpinner = view.findViewById(R.id.typeFilterResult)
-
         collectionTypeFilter = view.findViewById(R.id.collectionTypeFilter)
 
         dbHelper = DatabaseHelper(view.context)
 
-        gameList = dbHelper.getGamesFromDB()
+        firestore = FirestoreClientImpl(view)
+
+        firestore.getFromDatabase("digitallibrarydavidk")
+
+        gamesFromFireStore = firestore.getCloudCollectionList()
 
         imageSwitcher.setFactory {
             imgView = ImageView(this.context)
@@ -119,7 +126,7 @@ class FragmentView : Fragment() {
                         when (type) {
                             CollectionTypes.GAME -> viewFunction.filterByRating(
                                 Integer.valueOf(typeFilterResultSpinner.selectedItem as String)
-                                , gameListFilter
+                                , gamesFromFireStore
                             )
                             CollectionTypes.MOVIE -> ""
                             CollectionTypes.MUSIC -> ""
@@ -158,7 +165,7 @@ class FragmentView : Fragment() {
                     if (view != null) {
                         var filterResult = typeFilterSpinner.selectedItem as String
 
-                        gameListFilter = viewFunction.filterByPlatform(filterResult, gameList)
+                        gameListFilter = viewFunction.filterByPlatform(filterResult, gamesFromFireStore)
 
                     }
                 }
@@ -169,20 +176,29 @@ class FragmentView : Fragment() {
 
     private fun buttonClick(view: View) {
 
-        if (gameListFilter.isNotEmpty()) {
-            viewFunction.loadGameImageFromUrl(gameListFilter[counter], imageSwitcher)
+        if (gamesFromFireStore.isNotEmpty()) {
+            gameListFilter[counter].images?.get(0).let {
+                if (it != null) {
+                    viewFunction.loadGameImageFromUrlLocal(it, imageSwitcher)
+                }
+            }
 
-            if ((!Pattern.compile("0/0/\\d{4}").matcher(gameListFilter[counter].releaseDate)
+//            gamesFromFireStore.get(counter).images?.get(0)?.let {
+//                viewFunction.loadGameImageFromUrlLocal(
+//                    it, imageSwitcher)
+//            }
+
+            if ((!Pattern.compile("0/0/\\d{4}").matcher(gamesFromFireStore[counter].releasedate)
                     .find()) &&
                 viewFunction.calcuateTimeToRelease(
-                    gameListFilter[counter],
+                    gameListFilter[counter].releasedate,
                     LocalDate.now().toString()
                 ).isNegative
             ) {
                 viewFunction.createAlertDialogPreOwned(
                     view.context,
                     viewFunction.calcuateTimeToRelease(
-                        gameListFilter[counter],
+                        gameListFilter[counter].releasedate,
                         LocalDate.now().toString()
                     ),
                     gameListFilter[counter]

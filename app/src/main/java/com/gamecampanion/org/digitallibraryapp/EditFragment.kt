@@ -19,7 +19,6 @@ class EditFragment : Fragment() {
     lateinit var dateReleasePicker: DatePicker
     lateinit var acceptEditButton: Button
     lateinit var entity: GameEntity
-
     lateinit var databaseHelper: DatabaseHelper
 
     override fun onCreateView(
