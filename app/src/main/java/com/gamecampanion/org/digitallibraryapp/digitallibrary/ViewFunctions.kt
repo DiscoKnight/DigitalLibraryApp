@@ -8,7 +8,6 @@ import android.graphics.drawable.BitmapDrawable
 import android.widget.ImageSwitcher
 import androidx.core.graphics.drawable.toDrawable
 import com.gamecampanion.org.digitallibraryapp.Database.firestore.DigitalLibraryModel
-import com.gamecampanion.org.digitallibraryapp.Database.game.GameEntity
 import com.gamecampanion.org.digitallibraryapp.R
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.GlobalScope

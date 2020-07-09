@@ -1,24 +1,17 @@
 package com.gamecampanion.org.digitallibraryapp
 
 import android.os.Bundle
-import android.provider.ContactsContract.Intents.Insert.ACTION
-import android.util.Log
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GestureDetectorCompat
-import androidx.core.view.MotionEventCompat
 import kotlinx.android.synthetic.main.activity_main.*
 
 class ViewActivity: AppCompatActivity() {
-
-    lateinit var decector: GestureDetectorCompat
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.viewcollectionlayout)
         setSupportActionBar(toolbar)
-
-        decector = GestureDetectorCompat(this, MyGestureDetector())
 
     }
 
@@ -40,9 +33,4 @@ class ViewActivity: AppCompatActivity() {
         }
     }
 
-    override fun onTouchEvent(event: MotionEvent): Boolean{
-        decector.onTouchEvent(event)
-        return super.onTouchEvent(event)
-
-    }
 }

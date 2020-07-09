@@ -11,7 +11,6 @@ import com.gamecampanion.org.digitallibraryapp.Database.firestore.DigitalLibrary
 import com.gamecampanion.org.digitallibraryapp.Database.firestore.Firestore
 import com.gamecampanion.org.digitallibraryapp.Database.firestore.FirestoreClientImpl
 import kotlinx.android.synthetic.main.fragment_add.*
-import java.util.*
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.

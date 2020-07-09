@@ -1,6 +1,7 @@
 package com.gamecampanion.org.digitallibraryapp
 
 import android.os.Bundle
+import android.view.GestureDetector
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -10,12 +11,9 @@ import com.gamecampanion.org.digitallibraryapp.Database.DatabaseHelper
 import com.gamecampanion.org.digitallibraryapp.Database.firestore.DigitalLibraryModel
 import com.gamecampanion.org.digitallibraryapp.Database.firestore.Firestore
 import com.gamecampanion.org.digitallibraryapp.Database.firestore.FirestoreClientImpl
-import com.gamecampanion.org.digitallibraryapp.Database.game.GameEntity
 import com.gamecampanion.org.digitallibraryapp.digitallibrary.ViewFunctions
 import java.time.LocalDate
-import java.util.*
 import java.util.regex.Pattern
-import kotlin.collections.ArrayList
 import android.view.ViewGroup as ViewGroup1
 
 class FragmentView : Fragment() {
@@ -32,6 +30,7 @@ class FragmentView : Fragment() {
     lateinit var typeFilterResultSpinner: Spinner
     lateinit var collectionTypeFilter: Spinner
     lateinit var firestore : Firestore
+    lateinit var gesture: GestureDetector
 
     private var type: CollectionTypes = CollectionTypes.GAME
 
@@ -140,7 +139,16 @@ class FragmentView : Fragment() {
 
         imageSwitcher.setOnClickListener { onClick(view) }
 
+        gesture = GestureDetector( view.context, MyGestureDetector(gameListFilter[counter].images, imageSwitcher) )
+
+        view.setOnTouchListener { v, event ->  onTouchEvent(v, event)}
+
         return view
+    }
+
+    fun onTouchEvent(view: View, event: MotionEvent): Boolean{
+        gesture.onTouchEvent(event)
+        return true
     }
 
     private fun setUpSpinner(genreArray: Int) {
@@ -177,7 +185,7 @@ class FragmentView : Fragment() {
 
     private fun buttonClick(view: View) {
 
-        if (gamesFromFireStore.isNotEmpty()) {
+        if (gameListFilter.isNotEmpty()) {
             gameListFilter[counter].images?.get(0).let {
                 if (it != null) {
                     viewFunction.loadGameImageFromUrlLocal(it, imageSwitcher)
