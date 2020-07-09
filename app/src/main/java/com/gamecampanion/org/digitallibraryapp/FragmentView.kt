@@ -2,6 +2,7 @@ package com.gamecampanion.org.digitallibraryapp
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.widget.*
 import androidx.fragment.app.Fragment
@@ -38,7 +39,7 @@ class FragmentView : Fragment() {
     val images = intArrayOf(
         R.drawable.gow1,
         R.drawable.hzd1
-    );
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup1?,
@@ -182,11 +183,6 @@ class FragmentView : Fragment() {
                     viewFunction.loadGameImageFromUrlLocal(it, imageSwitcher)
                 }
             }
-
-//            gamesFromFireStore.get(counter).images?.get(0)?.let {
-//                viewFunction.loadGameImageFromUrlLocal(
-//                    it, imageSwitcher)
-//            }
 
             if ((!Pattern.compile("0/0/\\d{4}").matcher(gamesFromFireStore[counter].releasedate)
                     .find()) &&
