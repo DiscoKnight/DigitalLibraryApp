@@ -14,6 +14,7 @@ import com.gamecampanion.org.digitallibraryapp.Database.firestore.FirestoreClien
 import com.gamecampanion.org.digitallibraryapp.digitallibrary.ViewFunctions
 import java.time.LocalDate
 import java.util.regex.Pattern
+import java.util.stream.Collectors
 import android.view.ViewGroup as ViewGroup1
 
 class FragmentView : Fragment() {
@@ -22,6 +23,7 @@ class FragmentView : Fragment() {
     var gamesFromFireStore: List<DigitalLibraryModel> = ArrayList()
     var counter: Int = 0
     var isEnlarged = true
+    private var imageArrayCounter = 0
 
     lateinit var dbHelper: DatabaseHelper
     lateinit var imgView: ImageView
@@ -29,8 +31,9 @@ class FragmentView : Fragment() {
     lateinit var typeFilterSpinner: Spinner
     lateinit var typeFilterResultSpinner: Spinner
     lateinit var collectionTypeFilter: Spinner
-    lateinit var firestore : Firestore
+    lateinit var firestore: Firestore
     lateinit var gesture: GestureDetector
+    lateinit var myGestureDetectorListener: MyGestureDetectorListener
 
     private var type: CollectionTypes = CollectionTypes.GAME
 
@@ -139,16 +142,39 @@ class FragmentView : Fragment() {
 
         imageSwitcher.setOnClickListener { onClick(view) }
 
-        gesture = GestureDetector( view.context, MyGestureDetector(gameListFilter[counter].images, imageSwitcher) )
+        //gesture = GestureDetector( view.context, MyGestureDetector( imageSwitcher) )
+        myGestureDetectorListener = MyGestureDetectorListener(imageSwitcher)
 
-        view.setOnTouchListener { v, event ->  onTouchEvent(v, event)}
+        view.setOnTouchListener { v, event -> onTouchEvent(v, event) }
 
         return view
     }
 
-    fun onTouchEvent(view: View, event: MotionEvent): Boolean{
-        gesture.onTouchEvent(event)
+    fun onTouchEvent(view: View, event: MotionEvent): Boolean {
+        if (gameListFilter.isNotEmpty()) {
+            myGestureDetectorListener.setGamesList(createImageList(gameListFilter[counter]))
+
+            if(imageArrayCounter < gameListFilter[counter].images!!.size){
+                myGestureDetectorListener.setImageArrayCounter(imageArrayCounter)
+            }else{
+                imageArrayCounter = 0
+            }
+
+            gesture = GestureDetector(view.context, myGestureDetectorListener)
+
+            gesture.onTouchEvent(event)
+
+            imageArrayCounter = imageArrayCounter.inc()
+        }
+
         return true
+    }
+
+    private fun createImageList(digitalLibraryModel: DigitalLibraryModel): List<String> {
+
+        return digitalLibraryModel.images?.stream()?.filter { e -> e.isNotEmpty() }
+            ?.collect(Collectors.toList())!!.toMutableList()
+
     }
 
     private fun setUpSpinner(genreArray: Int) {
@@ -174,7 +200,8 @@ class FragmentView : Fragment() {
                     if (view != null) {
                         var filterResult = typeFilterSpinner.selectedItem as String
 
-                        gameListFilter = viewFunction.filterByPlatform(filterResult, gamesFromFireStore)
+                        gameListFilter =
+                            viewFunction.filterByPlatform(filterResult, gamesFromFireStore)
 
                     }
                 }
@@ -221,10 +248,10 @@ class FragmentView : Fragment() {
 
     fun onClick(view: View) {
 
-        if(isEnlarged){
+        if (isEnlarged) {
             imageSwitcher.animate().scaleX(1.75f).scaleY(1.75f).start()
             isEnlarged = false
-        }else{
+        } else {
             imageSwitcher.animate().scaleX(0.75f).scaleY(0.75f).start()
             isEnlarged = true
         }

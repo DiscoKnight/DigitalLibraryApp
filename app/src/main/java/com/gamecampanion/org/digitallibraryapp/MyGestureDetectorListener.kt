@@ -6,10 +6,19 @@ import android.widget.ImageSwitcher
 import androidx.core.view.GestureDetectorCompat
 import com.gamecampanion.org.digitallibraryapp.digitallibrary.ViewFunctions
 
-class MyGestureDetector( var imageList : List<String>?, var switcher: ImageSwitcher): GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
+class MyGestureDetectorListener(var switcher: ImageSwitcher): GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
 
+    lateinit var filterList: List<String>
     private var viewFunctions = ViewFunctions()
     private var imageArrayCounter = 0
+
+    fun setGamesList(list: List<String>){
+        this.filterList = list
+    }
+
+    fun setImageArrayCounter(counter: Int){
+        imageArrayCounter = counter
+    }
 
     override fun onShowPress(e: MotionEvent?) {
         println("smurf1")
@@ -17,13 +26,11 @@ class MyGestureDetector( var imageList : List<String>?, var switcher: ImageSwitc
     }
 
     override fun onSingleTapUp(e: MotionEvent?): Boolean {
-        println("smurf2")
 
         return true
     }
 
     override fun onDown(e: MotionEvent?): Boolean {
-        println("smurf3")
 
         return true
     }
@@ -34,7 +41,6 @@ class MyGestureDetector( var imageList : List<String>?, var switcher: ImageSwitc
         velocityX: Float,
         velocityY: Float
     ): Boolean {
-        println("smurf4")
 
         return true
     }
@@ -45,24 +51,30 @@ class MyGestureDetector( var imageList : List<String>?, var switcher: ImageSwitc
         distanceX: Float,
         distanceY: Float
     ): Boolean {
-        println("smurf5")
 
-        if(imageList?.size!! <= imageArrayCounter){
-            imageArrayCounter.inc()
-            imageList?.get(imageArrayCounter)?.let { viewFunctions.loadGameImageFromUrlLocal(it, switcher) }
-        }else{
-            imageArrayCounter = 0
-        }
+        //if(imageArrayCounter < filterList.size ){
+            filterList?.get(imageArrayCounter)?.let { viewFunctions.loadGameImageFromUrlLocal(it, switcher) }
+            //imageArrayCounter = imageArrayCounter.inc()
+        //}
 
         return true
     }
 
     override fun onLongPress(e: MotionEvent?) {
-        println("smurf6")
+
     }
 
     override fun onDoubleTap(e: MotionEvent?): Boolean {
-        println("smurf7")
+
+        if(imageArrayCounter < filterList.size ){
+            filterList?.get(imageArrayCounter)?.let { viewFunctions.loadGameImageFromUrlLocal(it, switcher) }
+            imageArrayCounter = imageArrayCounter.inc()
+        }
+
+        if(imageArrayCounter == filterList.size){
+            imageArrayCounter = 0
+            filterList?.get(imageArrayCounter)?.let { viewFunctions.loadGameImageFromUrlLocal(it, switcher) }
+        }
 
         return true
     }
