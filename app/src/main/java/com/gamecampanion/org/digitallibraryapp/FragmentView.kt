@@ -142,16 +142,18 @@ class FragmentView : Fragment() {
 
         imageSwitcher.setOnClickListener { onClick(view) }
 
-        myGestureDetectorListener = MyGestureDetectorListener(imageSwitcher)
+        myGestureDetectorListener = MyGestureDetectorListener(imageSwitcher, view)
 
         view.setOnTouchListener { v, event -> onTouchEvent(v, event) }
 
         return view
     }
 
-    fun onTouchEvent(view: View, event: MotionEvent): Boolean {
+    private fun onTouchEvent(view: View, event: MotionEvent): Boolean {
         if (gameListFilter.isNotEmpty() &&
             gameListFilter[counter].images!!.isNotEmpty()) {
+            myGestureDetectorListener.setGamesListFilter(gameListFilter)
+
             myGestureDetectorListener.setGamesList(createImageList(gameListFilter[counter]))
 
             if (imageArrayCounter < gameListFilter[counter].images!!.size) {

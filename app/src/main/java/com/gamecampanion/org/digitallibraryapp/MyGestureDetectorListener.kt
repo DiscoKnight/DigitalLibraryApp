@@ -9,9 +9,11 @@ import com.gamecampanion.org.digitallibraryapp.digitallibrary.ViewFunctions
 import java.time.LocalDate
 import java.util.regex.Pattern
 
-class MyGestureDetectorListener(var switcher: ImageSwitcher) : GestureDetector.OnGestureListener,
+class MyGestureDetectorListener(var switcher: ImageSwitcher, var view: View) :
+    GestureDetector.OnGestureListener,
     GestureDetector.OnDoubleTapListener {
 
+    lateinit var gameListFilter: List<DigitalLibraryModel>
     lateinit var filterList: List<String>
     private var viewFunctions = ViewFunctions()
     private var imageArrayCounter = 0
@@ -22,6 +24,10 @@ class MyGestureDetectorListener(var switcher: ImageSwitcher) : GestureDetector.O
 
     fun setImageArrayCounter(counter: Int) {
         imageArrayCounter = counter
+    }
+
+    fun setGamesListFilter(gameListFilter: List<DigitalLibraryModel>) {
+        this.gameListFilter = gameListFilter
     }
 
     override fun onShowPress(e: MotionEvent?) {
@@ -45,6 +51,8 @@ class MyGestureDetectorListener(var switcher: ImageSwitcher) : GestureDetector.O
         velocityY: Float
     ): Boolean {
 
+        println("smurf2")
+
         return true
     }
 
@@ -54,12 +62,9 @@ class MyGestureDetectorListener(var switcher: ImageSwitcher) : GestureDetector.O
         distanceX: Float,
         distanceY: Float
     ): Boolean {
+
         filterList?.get(imageArrayCounter)
             ?.let { viewFunctions.loadGameImageFromUrlLocal(it, switcher) }
-
-        if(e2?.rawY?.compareTo(e2.y)!! > 0){
-            println("smurf1")
-        }
 
         return true
     }
@@ -69,6 +74,8 @@ class MyGestureDetectorListener(var switcher: ImageSwitcher) : GestureDetector.O
     }
 
     override fun onDoubleTap(e: MotionEvent?): Boolean {
+
+        println("smurf2")
 
         return true
     }
@@ -81,37 +88,4 @@ class MyGestureDetectorListener(var switcher: ImageSwitcher) : GestureDetector.O
         TODO("Not yet implemented")
     }
 
-    private fun foo(gameListFilter: List<DigitalLibraryModel>,
-                    viewFunction: ViewFunctions,
-                    view: View,
-                    counter: Int,
-                    imageSwitcher: ImageSwitcher,
-                    gamesFromFireStore: List<DigitalLibraryModel>){
-        if (gameListFilter.isNotEmpty()) {
-            gameListFilter[counter].images?.get(0).let {
-                if (it != null) {
-                    viewFunction.loadGameImageFromUrlLocal(it, imageSwitcher)
-                }
-            }
-
-            if ((!Pattern.compile("0/0/\\d{4}").matcher(gamesFromFireStore[counter].releasedate)
-                    .find()) &&
-                viewFunction.calcuateTimeToRelease(
-                    gameListFilter[counter].releasedate,
-                    LocalDate.now().toString()
-                ).isNegative
-            ) {
-                viewFunction.createAlertDialogPreOwned(
-                    view.context,
-                    viewFunction.calcuateTimeToRelease(
-                        gameListFilter[counter].releasedate,
-                        LocalDate.now().toString()
-                    ),
-                    gameListFilter[counter]
-                )
-            } else {
-                viewFunction.createAlertDialog(gameListFilter[counter], view.context)
-            }
-        }
-    }
 }
