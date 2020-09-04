@@ -9,12 +9,22 @@ import android.widget.Button
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import com.gamecampanion.org.digitallibraryapp.Database.DatabaseHelper
+import com.gamecampanion.org.digitallibraryapp.Database.firestore.DigitalLibraryModel
+import com.gamecampanion.org.digitallibraryapp.Database.firestore.FirestoreClientImpl
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class DeleteFragment : Fragment() {
 
-    lateinit var button: Button
-    lateinit var deleteSpinner: Spinner
-    lateinit var databaseHelper: DatabaseHelper
+    private lateinit var button: Button
+    private lateinit var deleteSpinner: Spinner
+    private lateinit var databaseHelper: DatabaseHelper
+    private lateinit var firestoreClientImpl: FirestoreClientImpl
+    private var indexDeleteSpinner = 0
+
+    var li1 = ArrayList<DigitalLibraryModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,15 +34,14 @@ class DeleteFragment : Fragment() {
 
         button = view.findViewById(R.id.deleteImageButton)
         deleteSpinner = view.findViewById(R.id.deleteSpinner)
+        firestoreClientImpl = FirestoreClientImpl(view)
 
         databaseHelper = DatabaseHelper(view.context)
+        firestoreClientImpl.getFromDatabase("digitallibrarydavidk")
 
         button.setOnClickListener {
             button.isEnabled = false
-
-            var entityName = deleteSpinner.selectedItem as String
-
-            delete(entityName)
+            delete()
         }
 
         deleteSpinner.adapter = ArrayAdapter(
@@ -49,22 +58,23 @@ class DeleteFragment : Fragment() {
 
     }
 
-    private fun createAndPopulate(): Array<Any> {
-        var spinnerDeleteList = ArrayList<String>()
+    private fun createAndPopulate(): Array<DigitalLibraryModel> {
 
-        for (name in databaseHelper.getGamesFromDB()) {
-            name.gameName?.toUpperCase()?.let { spinnerDeleteList.add(it) }
-        }
+        //firestoreClientImpl.getFromDatabase("digitallibrarydavidk")
 
-        return spinnerDeleteList.toArray()
+        li1 = firestoreClientImpl.getCloudCollectionList()
+
+        return li1.toTypedArray()
     }
 
-    private fun delete(name: String) {
+    private fun delete() {
+        indexDeleteSpinner = deleteSpinner.selectedItemId as Int
 
-        var entity = databaseHelper.getGamesFromDB().stream()
-            .filter { e -> e.gameName!!.toUpperCase()!!.contentEquals(name) }.findFirst()
+        firestoreClientImpl.deleteFromCloudCollection(
+            firestoreClientImpl.documentIDList[indexDeleteSpinner].toString()
+            , "digitallibrarydavidk"
+        )
 
-        entity?.let { databaseHelper.deleteItemGame(it.get()) }
     }
 
 }

@@ -15,25 +15,47 @@ class FirestoreClientImpl(var view: View) : Firestore {
     var db = Firebase.firestore
 
     var arrayList = ArrayList<DigitalLibraryModel>()
+    var documentIDList = ArrayList<Int>()
 
     override fun getFromDatabase(collectionPath: String) {
-        db.collection(collectionPath).get().addOnSuccessListener { result ->
-            getDocumentFromResult(result)
-        }.addOnFailureListener { e -> errorHandle(e, view) }
+
+
+        var v = db.collection(collectionPath).get()
+
+        v.runCatching {
+            addOnSuccessListener { result ->
+                getDocumentFromResult(result)
+            }.addOnFailureListener { e -> errorHandle(e, view) }
+        }
+
+
+          //v.await()
+
+//        db.collection(collectionPath).get().addOnSuccessListener { result ->
+//            getDocumentFromResult(result)
+//        }.addOnFailureListener { e -> errorHandle(e, view) }
 
     }
 
     override fun writeToDatabase(model: DigitalLibraryModel, collectionPath: String) {
-        db.collection(collectionPath).add(model).addOnSuccessListener { result -> successfullWrite(result) }
+
+        db.collection(collectionPath).add(model)
+            .addOnSuccessListener { result -> successfullWrite(result) }
             .addOnFailureListener { e -> errorHandle(e, view) }
 
     }
 
-    override fun getCloudCollectionList(): List<DigitalLibraryModel>{
+    override fun getCloudCollectionList(): ArrayList<DigitalLibraryModel> {
         return this.arrayList
     }
 
+    override fun deleteFromCloudCollection(documentId: String, collectionPath: String) {
+        db.collection(collectionPath).document(documentId).delete()
+    }
+
     private fun successfullWrite(document: DocumentReference) {
+        documentIDList.add(Integer.valueOf(document.id))
+
         Log.i("", document.id)
     }
 

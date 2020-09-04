@@ -48,7 +48,7 @@ class FragmentView : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.viewcollectionlayout, container, false)
+        var view = inflater.inflate(R.layout.layoutmobileview, container, false)
 
         imageSwitcher = view.findViewById(R.id.imageswitcher)
         typeFilterSpinner = view.findViewById(R.id.typeFilter)

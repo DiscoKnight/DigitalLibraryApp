@@ -7,4 +7,6 @@ interface Firestore {
     fun writeToDatabase(model: DigitalLibraryModel, collectionPath: String)
 
     fun getCloudCollectionList(): List<DigitalLibraryModel>
+
+    fun deleteFromCloudCollection(documentId: String, collectionPath: String)
 }

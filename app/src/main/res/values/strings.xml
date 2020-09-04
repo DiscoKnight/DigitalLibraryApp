@@ -5,16 +5,19 @@
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Log-on</string>
-    <string name="addString">Add</string>
     <string name="addMenuItem">Account</string>
     <string name="viewMenuItem">View</string>
     <string name="hello_first_fragment">Log on</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="app_view">Digital Library - View</string>
-    <string name="deleteButtonText">Delete</string>
     <string name="dialogTitle">Time to release</string>
     <string name="dialogTitleGame">Game Info</string>
     <string name="imageUrlTest">Image URL: {list separated by ,}</string>
+
+    <string name="deleteButtonText">Delete</string>
+    <string name="editButtonText">Edit</string>
+    <string name="addString">Add</string>
+    <string name="viewButtonText">View</string>
 
     <string-array name="typeCollections">
         <item>Game</item>
