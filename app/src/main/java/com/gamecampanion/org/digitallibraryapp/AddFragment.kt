@@ -34,7 +34,7 @@ class AddFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_add, container, false)
+        var view = inflater.inflate(R.layout.layoutmobileadd, container, false)
 
         typeSpinner = view.findViewById(R.id.typeSpinner)
         genreSpinner = view.findViewById(R.id.genreSpinner)

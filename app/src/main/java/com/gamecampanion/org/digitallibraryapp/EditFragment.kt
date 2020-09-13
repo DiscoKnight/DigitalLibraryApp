@@ -25,7 +25,7 @@ class EditFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view = inflater.inflate(R.layout.fragment_edit, container, false)
+        var view = inflater.inflate(R.layout.layoutmobileedit, container, false)
 
         collectionTypeSpinner = view.findViewById(R.id.collectionSelectionSpinner)
         collectionSelectionResultSpinner = view.findViewById(R.id.collectionSelectionResultSpinner)

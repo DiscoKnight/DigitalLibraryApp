@@ -12,7 +12,7 @@ class AddActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_add)
+        setContentView(R.layout.layoutmobileadd)
         setSupportActionBar(toolbar)
 
         var addButton: Button = findViewById(R.id.button_second);

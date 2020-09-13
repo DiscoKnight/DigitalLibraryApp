@@ -5,83 +5,97 @@
     android:background="@drawable/backgroudgradient"
     android:scrollbars="vertical">
 
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="30dp">
+        android:layout_height="match_parent">
 
-        <Switch
-            android:id="@+id/isCloudSavedSwitch"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"
+            android:layout_margin="30dp">
 
-        <Spinner
-            android:id="@+id/typeSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/mobileMargin"
-            android:layout_below="@+id/ratingBar"
-            android:entries="@array/typeCollections"/>
+            <Switch
+                android:id="@+id/isCloudSavedSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true" />
 
-        <EditText
-            android:id="@+id/nameEditText"
-            android:inputType="text"
-            android:hint="Name: "
-            android:layout_margin="@dimen/mobileMargin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/typeSpinner"/>
+            <Spinner
+                android:id="@+id/typeSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ratingBar"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/mobileMargin"
+                android:entries="@array/typeCollections" />
 
-        <Spinner
-            android:id="@+id/genreSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/mobileMargin"
-            android:entries="@array/gameGenres"
-            android:layout_below="@+id/nameEditText"/>
+            <EditText
+                android:id="@+id/nameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/typeSpinner"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/mobileMargin"
+                android:hint="Name: "
+                android:inputType="text" />
 
-        <Spinner
-            android:id="@+id/platformSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/gamePlatform"
-            android:layout_margin="@dimen/mobileMargin"
-            android:layout_below="@+id/genreSpinner"/>
+            <Spinner
+                android:id="@+id/genreSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/nameEditText"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/mobileMargin"
+                android:entries="@array/gameGenres" />
 
-        <RatingBar
-            android:id="@+id/ratingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/isCloudSavedSwitch"
-            android:layout_margin="@dimen/mobileMargin"/>
+            <Spinner
+                android:id="@+id/platformSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/genreSpinner"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/mobileMargin"
+                android:entries="@array/gamePlatform" />
 
-        <DatePicker
-            android:id="@+id/calendarView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/mobileMargin"
-            android:layout_below="@+id/platformSpinner"/>
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/isCloudSavedSwitch"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/mobileMargin" />
 
-        <MultiAutoCompleteTextView
-            android:id="@+id/urlImageText"
-            android:layout_width="400dp"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="@string/imageUrlTest"
-            android:layout_margin="@dimen/mobileMargin"
-            android:layout_below="@+id/calendarView"/>
+            <DatePicker
+                android:id="@+id/calendarView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/platformSpinner"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/mobileMargin" />
 
-        <Button
-            android:id="@+id/button_second"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/roundedbutton"
-            android:text="@string/addString"
-            android:layout_margin="@dimen/mobileMargin"
-            android:layout_below="@+id/urlImageText"
-            android:layout_centerHorizontal="true"/>
+            <MultiAutoCompleteTextView
+                android:id="@+id/urlImageText"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/calendarView"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/mobileMargin"
+                android:hint="@string/imageUrlTest"
+                android:inputType="text" />
 
-    </RelativeLayout>
+            <Button
+                android:id="@+id/button_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/urlImageText"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/mobileMargin"
+                android:background="@drawable/roundedbutton"
+                android:text="@string/addString" />
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
