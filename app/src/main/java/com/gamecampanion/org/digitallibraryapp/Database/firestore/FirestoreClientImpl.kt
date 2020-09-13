@@ -16,24 +16,25 @@ class FirestoreClientImpl(var view: View) : Firestore {
 
     var arrayList = ArrayList<DigitalLibraryModel>()
     var documentIDList = ArrayList<Int>()
+    
 
     override fun getFromDatabase(collectionPath: String) {
 
+        var databaseTask = db.collection(collectionPath).get()
 
-        var v = db.collection(collectionPath).get()
+        databaseTask.addOnSuccessListener { result ->
+            getDocumentFromResult(result)
+        }.addOnFailureListener { e -> errorHandle(e, view) }
 
-        v.runCatching {
-            addOnSuccessListener { result ->
-                getDocumentFromResult(result)
-            }.addOnFailureListener { e -> errorHandle(e, view) }
-        }
-
-
-          //v.await()
-
-//        db.collection(collectionPath).get().addOnSuccessListener { result ->
-//            getDocumentFromResult(result)
-//        }.addOnFailureListener { e -> errorHandle(e, view) }
+//        runBlocking {
+//                var databaseRoutine = GlobalScope.async {
+//                    databaseTask.addOnSuccessListener { result ->
+//                        getDocumentFromResult(result)
+//                    }.addOnFailureListener { e -> errorHandle(e, view) }
+//                }
+//
+//            databaseRoutine.await()
+//        }
 
     }
 
@@ -78,9 +79,9 @@ class FirestoreClientImpl(var view: View) : Firestore {
                 document.get("images") as List<String>
             )
 
-            Log.d(TAG, "${document.name} => ${document}")
-
             arrayList.add(document)
+
+            Log.i(TAG, "${document.name} retrieved")
 
         }
 

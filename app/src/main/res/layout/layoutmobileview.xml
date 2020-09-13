@@ -35,7 +35,7 @@
     <ImageSwitcher
         android:id="@+id/imageswitcher"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:inAnimation="@android:anim/slide_in_left"
         android:outAnimation="@android:anim/slide_out_right"
         android:layout_below="@+id/collectionTypeFilter"

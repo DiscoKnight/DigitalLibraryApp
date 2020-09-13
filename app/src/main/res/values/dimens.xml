@@ -3,4 +3,5 @@
     <dimen name="mainFragmentButtonPadding">25dp</dimen>
     <dimen name="mainFragmentButtonMargin">10dp</dimen>
     <dimen name="buttonSize">230dp</dimen>
+    <dimen name="mobileMargin">20dp</dimen>
 </resources>
