@@ -9,6 +9,9 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 
 class FirestoreClientImpl(var view: View) : Firestore {
 
@@ -20,21 +23,23 @@ class FirestoreClientImpl(var view: View) : Firestore {
 
     override fun getFromDatabase(collectionPath: String) {
 
-        var databaseTask = db.collection(collectionPath).get()
+        //var databaseTask = db.collection(collectionPath).get()
 
-        databaseTask.addOnSuccessListener { result ->
-            getDocumentFromResult(result)
-        }.addOnFailureListener { e -> errorHandle(e, view) }
+//        databaseTask.addOnSuccessListener { result ->
+//            getDocumentFromResult(result)
+//        }.addOnFailureListener { e -> errorHandle(e, view) }
 
-//        runBlocking {
-//                var databaseRoutine = GlobalScope.async {
-//                    databaseTask.addOnSuccessListener { result ->
-//                        getDocumentFromResult(result)
-//                    }.addOnFailureListener { e -> errorHandle(e, view) }
-//                }
-//
-//            databaseRoutine.await()
-//        }
+        runBlocking {
+            var databaseTask = db.collection(collectionPath).get()
+            
+                var databaseRoutine = GlobalScope.async {
+                    databaseTask.addOnSuccessListener { result ->
+                        getDocumentFromResult(result)
+                    }.addOnFailureListener { e -> errorHandle(e, view) }
+                }
+
+            databaseRoutine.await()
+        }
 
     }
 
