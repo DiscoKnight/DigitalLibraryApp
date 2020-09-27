@@ -3,22 +3,29 @@ package com.gamecampanion.org.digitallibraryapp.activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.gamecampanion.org.digitallibraryapp.R
 
-class MainActivity : AppCompatActivity() {
+class LayoutMobileAddFragment : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.layoutmobileidpprompt)
+        setContentView(R.layout.layoutmobileadd)
         //setSupportActionBar(toolbar)
+
+        var addButton: Button = findViewById(R.id.button_second);
+
+        addButton.setOnClickListener {
+            print("smurf")
+        }
 
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
-
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -30,4 +37,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    fun addToCollection(view: View){
+        print("smurf1");
+    }
 }

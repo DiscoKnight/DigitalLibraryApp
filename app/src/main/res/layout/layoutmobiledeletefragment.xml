@@ -31,7 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
-    <include layout="@layout/toolbarbuttom"/>
+<!--    <include layout="@layout/toolbarbuttom"/>-->
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

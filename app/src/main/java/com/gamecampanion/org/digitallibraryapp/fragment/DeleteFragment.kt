@@ -1,4 +1,4 @@
-package com.gamecampanion.org.digitallibraryapp.activity
+package com.gamecampanion.org.digitallibraryapp.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

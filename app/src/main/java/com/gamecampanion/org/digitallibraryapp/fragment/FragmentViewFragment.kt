@@ -1,4 +1,4 @@
-package com.gamecampanion.org.digitallibraryapp.activity
+package com.gamecampanion.org.digitallibraryapp.fragment
 
 import android.os.Bundle
 import android.view.GestureDetector
@@ -20,7 +20,7 @@ import java.util.regex.Pattern
 import java.util.stream.Collectors
 import android.view.ViewGroup as ViewGroup1
 
-class FragmentView : Fragment() {
+class FragmentViewFragment : Fragment() {
 
     var gameListFilter: List<DigitalLibraryModel> = ArrayList()
     var gamesFromFireStore: List<DigitalLibraryModel> = ArrayList()

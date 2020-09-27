@@ -5,35 +5,133 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_two"
     tools:ignore="UnusedNavigation"
-    app:startDestination="@id/signup_activity">
+    app:startDestination="@id/startActivity">
 
-    <activity
-        android:id="@+id/signup_activity"
-        android:name="com.gamecampanion.org.digitallibraryapp.activity.FirstScreenActivity"
-        android:label=""
+    <fragment
+        android:id="@+id/startActivity"
+        android:name="com.gamecampanion.org.digitallibraryapp.fragment.FirstScreenFragment"
+        android:label="Sign up activity"
         android:layout="@layout/layoutmobilefirstscreen">
 
         <action
-            android:id="@+id/firstcreen_to_signup_action"
-            app:destination="@id/idpPrompactivty"
+            android:id="@+id/action_startFragment_to_providerSelect"
+            app:destination="@id/providerSelect"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"/>
 
-    </activity>
+        <action
+            android:id="@+id/action_signUpActivity_to_signUpFragmentNav"
+            app:destination="@id/signUpFragmentNav"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"/>
 
-    <activity
-        android:id="@+id/idpPrompactivty"
-        android:name="com.gamecampanion.org.digitallibraryapp.activity.IdpActivity"
-        android:label=""
+    </fragment>
+
+    <fragment
+        android:id="@+id/providerSelect"
+        android:name="com.gamecampanion.org.digitallibraryapp.fragment.ProviderSelectFragment"
+        android:label="IDP Prompt activity"
         android:layout="@layout/layoutmobileidpprompt">
 
         <action
-            android:id=""
-            app:destination=""
+            android:id="@+id/action_providerSelect_to_idpfprompt"
+            app:destination="@id/idpfprompt"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"/>
 
-    </activity>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/idpfprompt"
+        android:name="com.gamecampanion.org.digitallibraryapp.fragment.IdpfPromptFragment"
+        android:label=""
+        android:layout="@id/layoutmobileaddprompt">
+
+        <action
+            android:id="@+id/action_idpfprompt_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpFragmentNav"
+        android:name="com.gamecampanion.org.digitallibraryapp.fragment.SignupFragment"
+        android:label="Sign up fragment"
+        android:layout="@layout/layoutsignup">
+
+        <action
+            android:id="@+id/action_signUpFragmentNav_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.gamecampanion.org.digitallibraryapp.fragment.MainFragment"
+        android:label="Main Fragment"
+        android:layout="@layout/layoutmobilemain">
+
+        <action
+            android:id="@+id/action_mainFragment_to_editFragment"
+            app:destination="@id/editFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"/>
+
+        <action
+            android:id="@+id/action_mainFragment_to_viewFragment"
+            app:destination="@id/viewFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"/>
+
+        <action
+            android:id="@+id/action_mainFragment_to_addFragment"
+            app:destination="@id/addFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"/>
+
+        <action
+            android:id="@+id/action_mainFragment_to_deleteFragment"
+            app:destination="@id/deleteFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/viewFragment"
+        android:name="com.gamecampanion.org.digitallibraryapp.fragment.FragmentViewFragment"
+        android:label="View fragment"
+        android:layout="@layout/layoutmobileview">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.gamecampanion.org.digitallibraryapp.fragment.EditFragment"
+        android:label="Edit Fragment"
+        android:layout="@layout/layoutmobileview">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/deleteFragment"
+        android:name="com.gamecampanion.org.digitallibraryapp.fragment.DeleteFragment"
+        android:label="Delete fragment"
+        android:layout="@layout/layoutmobiledeletefragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.gamecampanion.org.digitallibraryapp.fragment.AddFragment"
+        android:label="Add fragment"
+        android:layout="@layout/layoutmobileadd">
+
+    </fragment>
 
 
 

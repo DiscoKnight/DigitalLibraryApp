@@ -19,6 +19,9 @@
     <string name="addString">Add</string>
     <string name="viewButtonText">View</string>
 
+    <string name="firstScreenSignIn">sign in</string>
+    <string name="firstScreenSignUp">sign up</string>
+
     <string-array name="typeCollections">
         <item>Game</item>
         <item>Music</item>

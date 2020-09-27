@@ -12,22 +12,22 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/viewButton"
+            android:id="@+id/signUpButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/mainFragmentButtonMargin"
             android:background="@drawable/roundedbutton"
-            android:text="sign up"
+            android:text="@string/firstScreenSignUp"
             android:layout_centerInParent="true"/>
 
         <Button
-            android:id="@+id/login"
+            android:id="@+id/signInButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/mainFragmentButtonMargin"
             android:background="@drawable/roundedbutton"
-            android:text="login"
-            android:layout_below="@+id/viewButton"
+            android:text="@string/firstScreenSignIn"
+            android:layout_below="@+id/signUpButton"
             android:layout_centerInParent="true"/>
 
     </RelativeLayout>

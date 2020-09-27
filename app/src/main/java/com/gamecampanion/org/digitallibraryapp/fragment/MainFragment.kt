@@ -1,4 +1,4 @@
-package com.gamecampanion.org.digitallibraryapp.activity
+package com.gamecampanion.org.digitallibraryapp.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,21 +23,21 @@ class MainFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(addButton).setOnClickListener {
-            findNavController().navigate(action_ThirdFrgment_to_SecondFragment)
-        }
-
-        view.findViewById<Button>(viewButton).setOnClickListener {
-            findNavController().navigate(action_fourthFragment_to_ThirdFragment)
-        }
-
-        view.findViewById<Button>(deleteButton).setOnClickListener {
-            findNavController().navigate(action_mainFragment_to_DeleteFragment)
-        }
-
-        view.findViewById<Button>(editButton).setOnClickListener {
-            findNavController().navigate(action_mainfragment_to_editfragment)
-        }
+//        view.findViewById<Button>(addButton).setOnClickListener {
+//            findNavController().navigate(action_ThirdFrgment_to_SecondFragment)
+//        }
+//
+//        view.findViewById<Button>(viewButton).setOnClickListener {
+//            findNavController().navigate(action_fourthFragment_to_ThirdFragment)
+//        }
+//
+//        view.findViewById<Button>(deleteButton).setOnClickListener {
+//            findNavController().navigate(action_mainFragment_to_DeleteFragment)
+//        }
+//
+//        view.findViewById<Button>(editButton).setOnClickListener {
+//            findNavController().navigate(action_mainfragment_to_editfragment)
+//        }
 
     }
 
