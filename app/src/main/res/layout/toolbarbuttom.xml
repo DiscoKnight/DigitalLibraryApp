@@ -12,8 +12,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="#57A3F9"
         android:layout_marginTop="10dp"
-        android:paddingTop="10dp"
-        />
+        android:paddingTop="10dp">
+    </Toolbar>
 
     <Button
         android:id="@+id/homeButton"

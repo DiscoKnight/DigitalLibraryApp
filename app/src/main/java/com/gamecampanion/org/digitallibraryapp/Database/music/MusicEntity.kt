@@ -3,8 +3,6 @@ package com.gamecampanion.org.digitallibraryapp.Database.music
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.gamecampanion.org.digitallibraryapp.digitallibrary.genres.MusicGenreEnum
-import java.time.LocalDate
 
 @Entity
 class MusicEntity(@PrimaryKey val id: Int,

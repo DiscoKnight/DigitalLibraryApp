@@ -6,11 +6,8 @@ import android.content.DialogInterface
 import android.content.res.Resources
 import android.graphics.drawable.BitmapDrawable
 import android.widget.ImageSwitcher
-import android.widget.TextView
 import androidx.core.graphics.drawable.toDrawable
-import com.gamecampanion.org.digitallibraryapp.Database.game.GameEntity
-import com.gamecampanion.org.digitallibraryapp.Database.movie.MovieEntity
-import com.gamecampanion.org.digitallibraryapp.Database.music.MusicEntity
+import com.gamecampanion.org.digitallibraryapp.Database.firestore.DigitalLibraryModel
 import com.gamecampanion.org.digitallibraryapp.R
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.GlobalScope
@@ -26,31 +23,35 @@ class ViewFunctions {
 
     lateinit var bitmapDrawable: BitmapDrawable
 
-    fun filterByPlatform(platform: String, gameList: List<GameEntity>): List<GameEntity> {
+    fun filterByPlatform(platform: String, gameList: List<DigitalLibraryModel>): List<DigitalLibraryModel> {
         return gameList.stream().filter { e -> e.platform.equals(platform) }.collect(
             Collectors.toList()
         )
 
     }
 
-    fun filterByRating(rating: Int, gameList: List<GameEntity>): List<GameEntity> {
+    fun filterByRating(rating: Int, gameList: List<DigitalLibraryModel>): List<DigitalLibraryModel> {
         return gameList.stream().filter { e -> e.rating!! <= rating }.collect(Collectors.toList())
     }
 
-    fun calcuateTimeToRelease(gameEntity: GameEntity, localDate: String): Period {
-        var getEntityList = gameEntity.releaseDate.toString().split(Pattern.compile("\\W"), 0)
+    fun calcuateTimeToRelease(releaseDate: String?, localDate: String): Period {
+        var getEntityList = releaseDate?.split(Pattern.compile("\\W"), 0)
 
-        return Period.between(
-            LocalDate.parse(
-                String.format(
-                    "%s-%s-%s",
-                    isDaysValid(Integer.valueOf(getEntityList.get(0))),
-                    isDaysValid(Integer.valueOf(getEntityList.get(1))),
-                    getEntityList.get(2)
-                ), DateTimeFormatter.ofPattern("M-d" +
-                        "-yyyy")
-            ), LocalDate.parse(localDate)
-        )
+        if (getEntityList != null) {
+            return Period.between(
+                LocalDate.parse(
+                    String.format(
+                        "%s-%s-%s",
+                        isDaysValid(Integer.valueOf(getEntityList.get(0))),
+                        isDaysValid(Integer.valueOf(getEntityList.get(1))),
+                        getEntityList?.get(2)
+                    ), DateTimeFormatter.ofPattern("d-M" +
+                            "-yyyy")
+                ), LocalDate.parse(localDate)
+            )
+        }else{
+            return Period.ZERO
+        }
 
     }
 
@@ -65,7 +66,7 @@ class ViewFunctions {
 
     }
 
-    fun createAlertDialogPreOwned(context: Context, period: Period, game: GameEntity) {
+    fun createAlertDialogPreOwned(context: Context, period: Period, game: DigitalLibraryModel) {
         var dialog = AlertDialog.Builder(
             context,
             R.style.MyDialogTheme
@@ -76,7 +77,7 @@ class ViewFunctions {
             period.years,
             period.months.toString().substring(1),
             period.days.toString().substring(1),
-            game.gameName,
+            game.name,
             game.platform,
             game.rating)
         )
@@ -88,7 +89,7 @@ class ViewFunctions {
         dialog.show()
     }
 
-    fun createAlertDialog(game: GameEntity, context: Context){
+    fun createAlertDialog(game: DigitalLibraryModel, context: Context){
         var dialog = AlertDialog.Builder(
             context,
             R.style.MyDialogTheme
@@ -96,7 +97,7 @@ class ViewFunctions {
 
         dialog.setTitle(R.string.dialogTitleGame)
         dialog.setMessage(String.format("Title: %s \n Platform: %s \n Rating: %s ",
-            game.gameName,
+            game.name,
             game.platform,
             game.rating)
         )
@@ -108,14 +109,12 @@ class ViewFunctions {
         dialog.show()
     }
 
-    //
-
-    fun loadGameImageFromUrl(gameEntity: GameEntity, imageSwitcher : ImageSwitcher) {
+    fun loadGameImageFromUrlLocal(url: String, imageSwitcher : ImageSwitcher) {
 
         runBlocking {
             var r = GlobalScope.async {
                 bitmapDrawable =
-                    Picasso.get().load(gameEntity.url).get().toDrawable(Resources.getSystem())
+                    Picasso.get().load(url).get().toDrawable(Resources.getSystem())
             }
 
             r.await()

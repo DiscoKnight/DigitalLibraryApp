@@ -19,14 +19,13 @@ class EditFragment : Fragment() {
     lateinit var dateReleasePicker: DatePicker
     lateinit var acceptEditButton: Button
     lateinit var entity: GameEntity
-
     lateinit var databaseHelper: DatabaseHelper
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view = inflater.inflate(R.layout.fragment_edit, container, false)
+        var view = inflater.inflate(R.layout.layoutmobileedit, container, false)
 
         collectionTypeSpinner = view.findViewById(R.id.collectionSelectionSpinner)
         collectionSelectionResultSpinner = view.findViewById(R.id.collectionSelectionResultSpinner)
@@ -127,6 +126,8 @@ class EditFragment : Fragment() {
         entity.releaseDate = Integer.toString(dateReleasePicker.month) + "/" + dateReleasePicker.dayOfMonth + "/" + dateReleasePicker.year
 
         databaseHelper.editItemGame(entity)
+
+
 
     }
 

@@ -7,6 +7,10 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.gamecampanion.org.digitallibraryapp.Database.DatabaseHelper
+import com.gamecampanion.org.digitallibraryapp.Database.firestore.DigitalLibraryModel
+import com.gamecampanion.org.digitallibraryapp.Database.firestore.Firestore
+import com.gamecampanion.org.digitallibraryapp.Database.firestore.FirestoreClientImpl
+import kotlinx.android.synthetic.main.fragment_add.*
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -14,45 +18,35 @@ import com.gamecampanion.org.digitallibraryapp.Database.DatabaseHelper
 class AddFragment : Fragment() {
 
     lateinit var databaseHelper: DatabaseHelper
-
     lateinit var typeSpinner: Spinner
-
     lateinit var genreSpinner: Spinner
-
     lateinit var platformSpinner: Spinner
-
     lateinit var ratingBar: RatingBar
-
     lateinit var name: EditText
-
-    lateinit var url: EditText
-
+    lateinit var url: MultiAutoCompleteTextView
     var positionIndex: Int = 0
-
     lateinit var datePicker: DatePicker
+    lateinit var firestore: Firestore
+    lateinit var isCloudSaved: Switch
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_add, container, false)
+        var view = inflater.inflate(R.layout.layoutmobileadd, container, false)
 
         typeSpinner = view.findViewById(R.id.typeSpinner)
-
         genreSpinner = view.findViewById(R.id.genreSpinner)
-
         platformSpinner = view.findViewById(R.id.platformSpinner)
-
         ratingBar = view.findViewById(R.id.ratingBar)
-
         name = view.findViewById(R.id.nameEditText)
-
         url = view.findViewById(R.id.urlImageText)
-
         datePicker = view.findViewById(R.id.calendarView)
+        isCloudSaved = view.findViewById(R.id.isCloudSavedSwitch)
 
         databaseHelper = DatabaseHelper(view.context)
+        firestore = FirestoreClientImpl(view)
 
         typeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
@@ -109,21 +103,42 @@ class AddFragment : Fragment() {
 
     private fun addItemToDB(position: Int) {
 
-        when (position) {
-            0 -> databaseHelper.runGameDBInsert(
-                databaseHelper.createItemGame(
-                    name.text.toString(),
-                    platformSpinner.selectedItem.toString(),
-                    datePicker,
-                    ratingBar,
-                    genreSpinner.selectedItem.toString(),
-                    true,
-                    url.text.toString()
+        if (isCloudSaved.isChecked) {
+            firestore.writeToDatabase(digitalLibraryModel(), "digitallibrarydavidk")
+        } else {
+            when (position) {
+                0 -> databaseHelper.runGameDBInsert(
+                    databaseHelper.createItemGame(
+                        name.text.toString(),
+                        platformSpinner.selectedItem.toString(),
+                        datePicker,
+                        ratingBar,
+                        genreSpinner.selectedItem.toString(),
+                        true,
+                        url.text.toString()
+                    )
                 )
-            )
-            1 -> "databaseHelper.addItemMusic()"
-            //2 -> databaseHelper.addItemMovie()
+                1 -> "databaseHelper.addItemMusic()"
+                //2 -> databaseHelper.addItemMovie()
+            }
         }
+    }
+
+    private fun digitalLibraryModel(): DigitalLibraryModel {
+        return DigitalLibraryModel(
+            genreSpinner.selectedItem.toString(),
+            false,
+            name.text.toString(),
+            platformSpinner.selectedItem.toString(),
+            ratingBar.rating.toLong(),
+            datePicker.dayOfMonth.toString() + "/" + datePicker.month + "/" + datePicker.year,
+            createCollectionsUrlList()
+        )
+
+    }
+
+    private fun createCollectionsUrlList(): List<String>{
+        return urlImageText.text.toString().split(",").toList()
     }
 
 

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroudgradient"
+    android:scrollbars="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/mobileMargin">
+
+
+            <Spinner
+                android:id="@+id/collectionSelectionSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/typeCollections"
+                android:layout_margin="@dimen/mobileMargin"
+                android:layout_centerHorizontal="true"/>
+
+            <Spinner
+                android:id="@+id/collectionSelectionResultSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/mobileMargin"
+                android:layout_below="@+id/collectionSelectionSpinner"
+                android:layout_centerHorizontal="true"/>
+
+            <EditText
+                android:id="@+id/nameTextViewEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Name:"
+                android:layout_margin="@dimen/mobileMargin"
+                android:layout_below="@+id/collectionSelectionResultSpinner"
+                android:layout_centerHorizontal="true"/>
+
+            <EditText
+                android:id="@+id/urlTextViewEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Image URL:"
+                android:layout_margin="@dimen/mobileMargin"
+                android:layout_below="@+id/nameTextViewEdit"
+                android:layout_centerHorizontal="true"/>
+
+            <DatePicker
+                android:id="@+id/releaseDatePicker"
+                android:datePickerMode="calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/mobileMargin"
+                android:layout_below="@+id/urlTextViewEdit"
+                android:layout_centerHorizontal="true"/>
+
+            <Button
+                android:id="@+id/editAcceptButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundedbutton"
+                android:layout_below="@+id/releaseDatePicker"
+                android:text="Change"
+                android:layout_margin="@dimen/mobileMargin"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <include layout="@layout/toolbarbuttom"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
