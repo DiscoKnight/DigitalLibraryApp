@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_two"
+    tools:ignore="UnusedNavigation"
+    app:startDestination="@id/signup_activity">
+
+    <activity
+        android:id="@+id/signup_activity"
+        android:name="com.gamecampanion.org.digitallibraryapp.activity.FirstScreenActivity"
+        android:label=""
+        android:layout="@layout/layoutmobilefirstscreen">
+
+        <action
+            android:id="@+id/firstcreen_to_signup_action"
+            app:destination="@id/idpPrompactivty"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"/>
+
+    </activity>
+
+    <activity
+        android:id="@+id/idpPrompactivty"
+        android:name="com.gamecampanion.org.digitallibraryapp.activity.IdpActivity"
+        android:label=""
+        android:layout="@layout/layoutmobileidpprompt">
+
+        <action
+            android:id=""
+            app:destination=""
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"/>
+
+    </activity>
+
+
+
+</navigation>
