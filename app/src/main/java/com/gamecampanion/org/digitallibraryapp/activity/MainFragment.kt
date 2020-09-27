@@ -1,4 +1,4 @@
-package com.gamecampanion.org.digitallibraryapp
+package com.gamecampanion.org.digitallibraryapp.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.gamecampanion.org.digitallibraryapp.R
 import com.gamecampanion.org.digitallibraryapp.R.id.*
 
 class MainFragment() : Fragment() {

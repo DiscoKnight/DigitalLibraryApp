@@ -1,4 +1,4 @@
-package com.gamecampanion.org.digitallibraryapp
+package com.gamecampanion.org.digitallibraryapp.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import com.gamecampanion.org.digitallibraryapp.Database.DatabaseHelper
 import com.gamecampanion.org.digitallibraryapp.Database.game.GameEntity
+import com.gamecampanion.org.digitallibraryapp.R
 import java.util.stream.Collectors
 
 class EditFragment : Fragment() {

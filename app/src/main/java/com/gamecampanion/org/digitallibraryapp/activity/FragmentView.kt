@@ -1,4 +1,4 @@
-package com.gamecampanion.org.digitallibraryapp
+package com.gamecampanion.org.digitallibraryapp.activity
 
 import android.os.Bundle
 import android.view.GestureDetector
@@ -7,10 +7,13 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.gamecampanion.org.digitallibraryapp.CollectionTypes
 import com.gamecampanion.org.digitallibraryapp.Database.DatabaseHelper
 import com.gamecampanion.org.digitallibraryapp.Database.firestore.DigitalLibraryModel
 import com.gamecampanion.org.digitallibraryapp.Database.firestore.Firestore
 import com.gamecampanion.org.digitallibraryapp.Database.firestore.FirestoreClientImpl
+import com.gamecampanion.org.digitallibraryapp.MyGestureDetectorListener
+import com.gamecampanion.org.digitallibraryapp.R
 import com.gamecampanion.org.digitallibraryapp.digitallibrary.ViewFunctions
 import java.time.LocalDate
 import java.util.regex.Pattern

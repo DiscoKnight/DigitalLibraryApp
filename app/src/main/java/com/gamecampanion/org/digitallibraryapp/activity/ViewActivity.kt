@@ -1,25 +1,17 @@
-package com.gamecampanion.org.digitallibraryapp
+package com.gamecampanion.org.digitallibraryapp.activity
 
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.idpprompt.*
+import com.gamecampanion.org.digitallibraryapp.R
 
-class AddActivity : AppCompatActivity() {
+class ViewActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.layoutmobileadd)
+        setContentView(R.layout.viewcollectionlayout)
         //setSupportActionBar(toolbar)
-
-        var addButton: Button = findViewById(R.id.button_second);
-
-        addButton.setOnClickListener {
-            print("smurf")
-        }
 
     }
 
@@ -34,10 +26,11 @@ class AddActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
 
-        return true
+        return when (item.itemId) {
+            R.id.action_settings -> true
+            R.id.addMenuItem -> true
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
-    fun addToCollection(view: View){
-        print("smurf1");
-    }
 }

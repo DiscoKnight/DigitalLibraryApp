@@ -1,4 +1,4 @@
-package com.gamecampanion.org.digitallibraryapp
+package com.gamecampanion.org.digitallibraryapp.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,10 +11,7 @@ import androidx.fragment.app.Fragment
 import com.gamecampanion.org.digitallibraryapp.Database.DatabaseHelper
 import com.gamecampanion.org.digitallibraryapp.Database.firestore.DigitalLibraryModel
 import com.gamecampanion.org.digitallibraryapp.Database.firestore.FirestoreClientImpl
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import com.gamecampanion.org.digitallibraryapp.R
 
 class DeleteFragment : Fragment() {
 
@@ -30,7 +27,7 @@ class DeleteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view: View = inflater.inflate(R.layout.deletefragment, container, false)
+        var view: View = inflater.inflate(R.layout.layoutmobiledeletefragment, container, false)
 
         button = view.findViewById(R.id.deleteImageButton)
         deleteSpinner = view.findViewById(R.id.deleteSpinner)

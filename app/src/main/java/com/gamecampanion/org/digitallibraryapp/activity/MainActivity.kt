@@ -1,16 +1,16 @@
-package com.gamecampanion.org.digitallibraryapp
+package com.gamecampanion.org.digitallibraryapp.activity
 
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.idpprompt.*
+import com.gamecampanion.org.digitallibraryapp.R
 
-class ViewActivity: AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.viewcollectionlayout)
+        setContentView(R.layout.layoutmobileidpprompt)
         //setSupportActionBar(toolbar)
 
     }
@@ -18,6 +18,7 @@ class ViewActivity: AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
+
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -26,11 +27,7 @@ class ViewActivity: AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
 
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            R.id.addMenuItem -> true
-            else -> super.onOptionsItemSelected(item)
-        }
+        return true
     }
 
 }

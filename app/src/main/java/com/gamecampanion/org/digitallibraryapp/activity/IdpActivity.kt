@@ -1,14 +1,15 @@
-package com.gamecampanion.org.digitallibraryapp
+package com.gamecampanion.org.digitallibraryapp.activity
 
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
+import com.gamecampanion.org.digitallibraryapp.R
 
-class FirstScreenActivity : AppCompatActivity() {
+class IdpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.firstscreen)
+        setContentView(R.layout.layoutmobileidpprompt)
         //setSupportActionBar(toolbar)
 
     }
@@ -19,5 +20,4 @@ class FirstScreenActivity : AppCompatActivity() {
 
         return super.onCreateOptionsMenu(menu)
     }
-
 }
