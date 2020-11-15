@@ -25,8 +25,18 @@ class FirstScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.viewButton).setOnClickListener {
-            findNavController().navigate(R.id.signUpFragmentNav)
-        }
+        //val navController = parentFragmentManager.findFragmentById(R.id.my_nav_host_fragment)?.findNavController()
+
+        //val navController = childFragmentManager.findFragmentById(R.id.my_nav_host_fragment)?.findNavController()
+
+        System.out.println("smurf")
+//
+//        view.findViewById<Button>(R.id.signUpButton).setOnClickListener {
+//            navController?.navigate(R.id.action_signUpActivity_to_signUpFragmentNav)
+//        }
+//
+//        view.findViewById<Button>(R.id.signInButton).setOnClickListener {
+//            navController?.navigate(R.id.action_startFragment_to_providerSelect)
+//        }
     }
 }

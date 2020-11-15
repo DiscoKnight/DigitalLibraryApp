@@ -6,8 +6,6 @@ import android.view.View
 import android.widget.ImageSwitcher
 import com.gamecampanion.org.digitallibraryapp.Database.firestore.DigitalLibraryModel
 import com.gamecampanion.org.digitallibraryapp.digitallibrary.ViewFunctions
-import java.time.LocalDate
-import java.util.regex.Pattern
 
 class MyGestureDetectorListener(var switcher: ImageSwitcher, var view: View) :
     GestureDetector.OnGestureListener,

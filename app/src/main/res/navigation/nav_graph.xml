@@ -11,7 +11,8 @@
         android:id="@+id/startActivity"
         android:name="com.gamecampanion.org.digitallibraryapp.fragment.FirstScreenFragment"
         android:label="Sign up activity"
-        android:layout="@layout/layoutmobilefirstscreen">
+        android:layout="@layout/layoutmobilefirstscreen"
+        tools:layout="@layout/layoutmobilefirstscreen">
 
         <action
             android:id="@+id/action_startFragment_to_providerSelect"
@@ -38,7 +39,6 @@
             app:destination="@id/idpfprompt"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"/>
-
 
     </fragment>
 
