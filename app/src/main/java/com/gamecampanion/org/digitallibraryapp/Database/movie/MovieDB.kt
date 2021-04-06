@@ -5,6 +5,6 @@ import androidx.room.RoomDatabase
 import com.gamecampanion.org.digitallibraryapp.digitallibrary.movie.MovieDao
 
 @Database(entities = arrayOf(MovieEntity::class), version = 1)
-abstract class MovieDB() : RoomDatabase(){
+abstract class MovieDB() : RoomDatabase() {
     abstract fun movieDao(): MovieDao
 }

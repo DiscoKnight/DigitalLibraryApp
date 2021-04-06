@@ -23,14 +23,20 @@ class ViewFunctions {
 
     lateinit var bitmapDrawable: BitmapDrawable
 
-    fun filterByPlatform(platform: String, gameList: List<DigitalLibraryModel>): List<DigitalLibraryModel> {
+    fun filterByPlatform(
+        platform: String,
+        gameList: List<DigitalLibraryModel>
+    ): List<DigitalLibraryModel> {
         return gameList.stream().filter { e -> e.platform.equals(platform) }.collect(
             Collectors.toList()
         )
 
     }
 
-    fun filterByRating(rating: Int, gameList: List<DigitalLibraryModel>): List<DigitalLibraryModel> {
+    fun filterByRating(
+        rating: Int,
+        gameList: List<DigitalLibraryModel>
+    ): List<DigitalLibraryModel> {
         return gameList.stream().filter { e -> e.rating!! <= rating }.collect(Collectors.toList())
     }
 
@@ -45,11 +51,13 @@ class ViewFunctions {
                         isDaysValid(Integer.valueOf(getEntityList.get(0))),
                         isDaysValid(Integer.valueOf(getEntityList.get(1))),
                         getEntityList?.get(2)
-                    ), DateTimeFormatter.ofPattern("d-M" +
-                            "-yyyy")
+                    ), DateTimeFormatter.ofPattern(
+                        "d-M" +
+                                "-yyyy"
+                    )
                 ), LocalDate.parse(localDate)
             )
-        }else{
+        } else {
             return Period.ZERO
         }
 
@@ -73,13 +81,16 @@ class ViewFunctions {
         )
 
         dialog.setTitle(R.string.dialogTitle)
-        dialog.setMessage(String.format("%s years to release, %s months to release, %s days to release\n Title: %s \n Platform: %s \n Rating: %s ",
-            period.years,
-            period.months.toString().substring(1),
-            period.days.toString().substring(1),
-            game.name,
-            game.platform,
-            game.rating)
+        dialog.setMessage(
+            String.format(
+                "%s years to release, %s months to release, %s days to release\n Title: %s \n Platform: %s \n Rating: %s ",
+                period.years,
+                period.months.toString().substring(1),
+                period.days.toString().substring(1),
+                game.name,
+                game.platform,
+                game.rating
+            )
         )
 
         dialog.setPositiveButton(
@@ -89,17 +100,20 @@ class ViewFunctions {
         dialog.show()
     }
 
-    fun createAlertDialog(game: DigitalLibraryModel, context: Context){
+    fun createAlertDialog(game: DigitalLibraryModel, context: Context) {
         var dialog = AlertDialog.Builder(
             context,
             R.style.MyDialogTheme
         )
 
         dialog.setTitle(R.string.dialogTitleGame)
-        dialog.setMessage(String.format("Title: %s \n Platform: %s \n Rating: %s ",
-            game.name,
-            game.platform,
-            game.rating)
+        dialog.setMessage(
+            String.format(
+                "Title: %s \n Platform: %s \n Rating: %s ",
+                game.name,
+                game.platform,
+                game.rating
+            )
         )
 
         dialog.setPositiveButton(
@@ -109,7 +123,7 @@ class ViewFunctions {
         dialog.show()
     }
 
-    fun loadGameImageFromUrlLocal(url: String, imageSwitcher : ImageSwitcher) {
+    fun loadGameImageFromUrlLocal(url: String, imageSwitcher: ImageSwitcher) {
 
         runBlocking {
             var r = GlobalScope.async {

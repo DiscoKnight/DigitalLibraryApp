@@ -68,8 +68,8 @@ class DeleteFragment : Fragment() {
         indexDeleteSpinner = deleteSpinner.selectedItemId as Int
 
         firestoreClientImpl.deleteFromCloudCollection(
-            firestoreClientImpl.documentIDList[indexDeleteSpinner].toString()
-            , "digitallibrarydavidk"
+            firestoreClientImpl.documentIDList[indexDeleteSpinner].toString(),
+            "digitallibrarydavidk"
         )
 
     }

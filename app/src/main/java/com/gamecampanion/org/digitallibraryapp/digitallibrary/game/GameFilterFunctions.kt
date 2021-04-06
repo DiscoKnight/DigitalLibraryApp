@@ -6,19 +6,22 @@ import com.gamecampanion.org.digitallibraryapp.digitallibrary.genres.GameGenreEn
 
 class GameFilterFunctions() : FilterFunctions() {
 
-    fun filterGameListName(list: List<GameEntity>, gameName: String): List<GameEntity>{
+    fun filterGameListName(list: List<GameEntity>, gameName: String): List<GameEntity> {
         return list.filter { e -> e.gameName == gameName }.toList()
     }
 
-    fun filterGameListPlatform(list: List<GameEntity>, platform: String): List<GameEntity>{
+    fun filterGameListPlatform(list: List<GameEntity>, platform: String): List<GameEntity> {
         return list.filter { e -> e.platform == platform }.toList()
     }
 
-    fun filterGameListRating(list: List<GameEntity>, rating: Int): List<GameEntity>{
+    fun filterGameListRating(list: List<GameEntity>, rating: Int): List<GameEntity> {
         return list.filter { e -> e.rating == rating }.toList()
     }
 
-    fun filterGameListGenre(list: List<GameEntity>, gameGenreEnum: GameGenreEnum): List<GameEntity>{
+    fun filterGameListGenre(
+        list: List<GameEntity>,
+        gameGenreEnum: GameGenreEnum
+    ): List<GameEntity> {
         return list.filter { e -> e.genre == gameGenreEnum.toString() }.toList()
     }
 

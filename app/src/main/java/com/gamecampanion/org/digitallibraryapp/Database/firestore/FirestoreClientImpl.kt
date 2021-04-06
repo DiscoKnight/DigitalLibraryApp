@@ -19,7 +19,7 @@ class FirestoreClientImpl(var view: View) : Firestore {
 
     var arrayList = ArrayList<DigitalLibraryModel>()
     var documentIDList = ArrayList<Int>()
-    
+
 
     override fun getFromDatabase(collectionPath: String) {
 
@@ -31,12 +31,12 @@ class FirestoreClientImpl(var view: View) : Firestore {
 
         runBlocking {
             var databaseTask = db.collection(collectionPath).get()
-            
-                var databaseRoutine = GlobalScope.async {
-                    databaseTask.addOnSuccessListener { result ->
-                        getDocumentFromResult(result)
-                    }.addOnFailureListener { e -> errorHandle(e, view) }
-                }
+
+            var databaseRoutine = GlobalScope.async {
+                databaseTask.addOnSuccessListener { result ->
+                    getDocumentFromResult(result)
+                }.addOnFailureListener { e -> errorHandle(e, view) }
+            }
 
             databaseRoutine.await()
         }

@@ -15,6 +15,7 @@ import com.gamecampanion.org.digitallibraryapp.Database.firestore.FirestoreClien
 import com.gamecampanion.org.digitallibraryapp.MyGestureDetectorListener
 import com.gamecampanion.org.digitallibraryapp.R
 import com.gamecampanion.org.digitallibraryapp.digitallibrary.ViewFunctions
+import com.gamecampanion.org.digitallibraryapp.httprestclient.MyRESTClient
 import java.time.LocalDate
 import java.util.regex.Pattern
 import java.util.stream.Collectors
@@ -22,6 +23,7 @@ import android.view.ViewGroup as ViewGroup1
 
 class FragmentViewFragment : Fragment() {
 
+    lateinit var gameRESTClient: MyRESTClient
     var gameListFilter: List<DigitalLibraryModel> = ArrayList()
     var gamesFromFireStore: List<DigitalLibraryModel> = ArrayList()
     var counter: Int = 0
@@ -131,8 +133,8 @@ class FragmentViewFragment : Fragment() {
 
                         when (type) {
                             CollectionTypes.GAME -> viewFunction.filterByRating(
-                                Integer.valueOf(typeFilterResultSpinner.selectedItem as String)
-                                , gamesFromFireStore
+                                Integer.valueOf(typeFilterResultSpinner.selectedItem as String),
+                                gamesFromFireStore
                             )
                             CollectionTypes.MOVIE -> ""
                             CollectionTypes.MUSIC -> ""
@@ -154,7 +156,8 @@ class FragmentViewFragment : Fragment() {
 
     private fun onTouchEvent(view: View, event: MotionEvent): Boolean {
         if (gameListFilter.isNotEmpty() &&
-            gameListFilter[counter].images!!.isNotEmpty()) {
+            gameListFilter[counter].images!!.isNotEmpty()
+        ) {
             myGestureDetectorListener.setGamesListFilter(gameListFilter)
 
             myGestureDetectorListener.setGamesList(createImageList(gameListFilter[counter]))

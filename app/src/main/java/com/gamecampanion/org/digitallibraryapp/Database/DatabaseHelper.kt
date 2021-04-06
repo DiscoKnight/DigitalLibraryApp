@@ -48,7 +48,7 @@ class DatabaseHelper(context: Context) {
     fun deleteItemGame(game: GameEntity) {
         runBlocking {
             GlobalScope.launch {
-               createGameDatabase().gameDao().deleteGame(game)
+                createGameDatabase().gameDao().deleteGame(game)
             }
         }
     }
@@ -90,7 +90,6 @@ class DatabaseHelper(context: Context) {
                 )
             }
         }
-
 
 
     }

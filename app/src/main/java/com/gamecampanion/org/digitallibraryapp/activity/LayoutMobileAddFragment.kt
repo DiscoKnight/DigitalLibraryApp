@@ -37,7 +37,7 @@ class LayoutMobileAddFragment : AppCompatActivity() {
         return true
     }
 
-    fun addToCollection(view: View){
+    fun addToCollection(view: View) {
         print("smurf1");
     }
 }

@@ -81,53 +81,56 @@ class EditFragment : Fragment() {
             gameArr
         )
 
-        collectionSelectionResultSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {
+        collectionSelectionResultSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
 
-            }
-
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                entity = databaseHelper.getGamesFromDB().get(position)
-
-                nameTextView.setText(entity.gameName)
-                urlTextView.setText(entity.url)
-
-                var releasedate = entity.releaseDate?.split("/")
-
-                var realeaseDateArray = releasedate?.stream()?.mapToInt { e-> convertToInt(e)  }?.toArray()
-
-                var day = realeaseDateArray?.get(1)
-                var month = realeaseDateArray?.get(0)
-                var year = realeaseDateArray?.get(2)
-
-                if (month != null
-                    && year != null
-                    && day != null) {
-                    dateReleasePicker.updateDate(year, month, day)
                 }
 
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    entity = databaseHelper.getGamesFromDB().get(position)
 
+                    nameTextView.setText(entity.gameName)
+                    urlTextView.setText(entity.url)
+
+                    var releasedate = entity.releaseDate?.split("/")
+
+                    var realeaseDateArray =
+                        releasedate?.stream()?.mapToInt { e -> convertToInt(e) }?.toArray()
+
+                    var day = realeaseDateArray?.get(1)
+                    var month = realeaseDateArray?.get(0)
+                    var year = realeaseDateArray?.get(2)
+
+                    if (month != null
+                        && year != null
+                        && day != null
+                    ) {
+                        dateReleasePicker.updateDate(year, month, day)
+                    }
+
+
+                }
             }
-        }
 
     }
 
-    private fun convertToInt(str: String): Int{
+    private fun convertToInt(str: String): Int {
         return Integer.valueOf(str)
     }
 
-    private fun onClick(view: View){
+    private fun onClick(view: View) {
         entity.gameName = nameTextView.text.toString()
         entity.url = urlTextView.text.toString()
-        entity.releaseDate = Integer.toString(dateReleasePicker.month) + "/" + dateReleasePicker.dayOfMonth + "/" + dateReleasePicker.year
+        entity.releaseDate =
+            Integer.toString(dateReleasePicker.month) + "/" + dateReleasePicker.dayOfMonth + "/" + dateReleasePicker.year
 
         databaseHelper.editItemGame(entity)
-
 
 
     }

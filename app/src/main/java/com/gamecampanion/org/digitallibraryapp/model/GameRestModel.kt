@@ -6,15 +6,9 @@ data class GameRestModel(
     val gameGenre: String,
     val rating: Int,
     val preOrder: Boolean,
-    val imageUrl: String
+    val imageUrl: String,
+    val releaseDate: String,
+    val gamePublisher: PublisherModel
 ) {
 
-
-//    private val id = idP;
-//    private val gameName = gameNameP;
-//    private val gameGenre = gameGenreP;
-////    private val gamePublisher: PublisherModel? = null
-//    private val rating = ratingP;
-//    private val preOrder = preOrderP;
-//    private val imageUrl = imageUrlP;
 }

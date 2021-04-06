@@ -1,15 +1,19 @@
 package com.gamecampanion.org.digitallibraryapp.httprestclient
 
+import okhttp3.OkHttpClient
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class MyRESTClientTest{
+internal class MyRESTClientTest {
 
     val underTest: MyRESTClient = MyRESTClient()
 
     @Test
-    fun test1(){
+    fun test_RESTClientSuccess() {
 
-        underTest.getGameList()
+        var client: OkHttpClient = underTest.getClient()
+
+        assertThat(client).isNotNull()
 
     }
 }
